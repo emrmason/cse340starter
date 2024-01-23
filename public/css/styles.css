@@ -1,6 +1,62 @@
+:root {
+  --font-serif: 'Bree Serif', serif;
+  --font-sans: 'Josefin Sans', sans-serif ;
+  
+  --off-white: #e0e1dd;
+  --black: #0d1b2a;
+  --dark-blue: #1b263b;
+  --light-blue: #778da9;
+}
 /******* Change Box Model ***************/
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
+html {
+  margin: 0 auto;
+  background-image: url('../images/site/small_check.jpg'); 
+  background-size: cover;
+}
+
+body {
+  background-color: var(--off-white);
+  max-width: 80%;
+  margin: 0 auto;
+  padding: 50px;
+  border: 5px solid var(--light-blue);
+  border-radius: 10px;
+  font-family: var(--font-sans);
+}
+
+h1, h2, h3 {
+  font-family: var(--font-serif);
+}
+
+#tip-header {
+  display: block;
+  max-height: 100px;
+  padding: 20px;
+  background-color: var(--light-blue);
+  color: var(--black);
+  align-items: center;
+}
+.sitename {
+    font-size: 2.5em;
+}
+
+#tools {
+  font-size: 1em;
+  margin-top: 15px;
+  float: right;
+}
+
+nav {
+  display: flex;
+  height: 60px;
+  background-color: var(--black);
+  color: var(--off-white);
+  align-items: center;
+  justify-content: center;
+  li {
+    font-size: 1.2em;
+    list-style-type: none;
+    display: inline;
+    margin: 100px;
+  };
 }
