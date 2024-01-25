@@ -15,13 +15,22 @@ html {
 }
 
 body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
   background-color: var(--off-white);
   max-width: 80%;
+  min-height: 95vh;
   margin: 0 auto;
-  padding: 50px;
+  padding: 2%;
   border: 5px solid var(--light-blue);
   border-radius: 10px;
   font-family: var(--font-sans);
+}
+
+h2{
+  display: block;
+  width: 100%;
 }
 
 h1, h2, h3 {
@@ -59,4 +68,158 @@ nav {
     display: inline;
     margin: 100px;
   };
+}
+
+.hero-image {
+  display: block;
+  width: 100%;
+  height: 400px;
+  img {
+    height: 400px; 
+    position: absolute;
+  }
+}
+
+.options {
+  position: relative;
+  float: left;
+  background-color: rgb(119 141 169 / 50%);
+  /* opacity:0.5; */
+  border-radius: 10px;
+  padding: 10px;
+  li {
+    list-style-type: none;
+    margin: 5px;
+  }
+  button {
+    display: block;
+    margin: 10px 10px 10px 30px;  
+    padding: 10px;
+  }
+}
+
+.upgrades {
+  padding:20px;
+  position: relative;
+  float: left;
+  display: flex;
+  flex-wrap:wrap;
+  justify-content: space-between;
+  width: 45%;
+  row-gap: 20px;
+  text-align: center;
+  div {
+    width: 45%;
+    display: flex; 
+    flex-direction:column;
+    justify-content: space-around;
+    img {
+      border: 1px solid var(--black);
+      background-color:var(--light-blue);
+      padding: 20px; 
+    }
+  }
+
+}
+
+.reviews {
+  padding: 20px;
+  display: block;
+  float: right;
+  width: 45;
+  li {
+    padding: 10px;
+  }
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 15px;
+  width: 100%;
+  height: 20px;
+}
+
+/* Media Query - Mobile
+@media only screen and (max-width: 600px) {
+  .sitename {
+    font-size: 1.5em;
+  }
+
+  nav {
+    height: 4%;
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+    li {
+      font-size: 1em;
+      margin: 1px;
+    };
+  }
+
+  .hero-image{
+    height: 20%;
+  }
+
+  .options {
+    padding: 5px;
+    li {
+      margin: 2px;
+    }
+    button {
+      display: block;
+      margin: 5px 5px 5px 15px;  
+      padding: 5px;
+    }
+  }
+
+  .reviews{
+    width: 90%;
+  }
+
+  .upgrades {
+    width: 90%;
+  }
+} */
+
+/* Media Query- Large screens */
+@media only screen and (min-width: 700px){
+  .sitename {
+    font-size: 1.5em;
+  }
+
+  nav {
+    height: 4%;
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+    li {
+      font-size: 1em;
+      margin: 1px;
+    };
+  }
+
+  .hero-image{
+    height: 20%;
+  }
+
+  .options {
+    padding: 5px;
+    li {
+      margin: 2px;
+    }
+    button {
+      display: block;
+      margin: 5px 5px 5px 15px;  
+      padding: 5px;
+    }
+  }
+
+  .reviews{
+    width: 90%;
+  }
+
+  .upgrades {
+    width: 90%;
+  }
 }
