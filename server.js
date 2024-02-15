@@ -24,6 +24,8 @@ app.set("layout", "./layouts/layout");
  * Routes
  *************************/
 app.use(static);
+
+// Index Route
 app.get("/", baseController.buildHome);
 
 //Inventory Routes
