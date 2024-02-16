@@ -1,5 +1,5 @@
-// const pool = require("../database/");
-const pool = require("/opt/render/project/src/database/");
+const pool = require("../database/index");
+// const pool = require("/opt/render/project/src/database/"); THIS CHANGE DIDN'T WORK...
 console.log("Current working directory:", process.cwd());
 console.log("__dirname:", __dirname);
 
