@@ -1,4 +1,7 @@
-const pool = require("../database/");
+// const pool = require("../database/");
+const pool = require("/opt/render/project/src/database/");
+console.log("Current working directory:", process.cwd());
+console.log("__dirname:", __dirname);
 
 /* ***************************
  *  Get all classification data
