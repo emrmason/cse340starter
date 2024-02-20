@@ -1,5 +1,4 @@
 const pool = require("../database/index");
-// const pool = require("/opt/render/project/src/database/"); THIS CHANGE DIDN'T WORK...
 console.log("Current working directory:", process.cwd());
 console.log("__dirname:", __dirname);
 
@@ -28,4 +27,29 @@ async function getInventoryByClassificationId(classification_id) {
   }
 }
 
-module.exports = { getClassifications, getInventoryByClassificationId };
+// Get all Inventory data
+async function getInventory() {
+  return await pool.query("SELECT * FROM public.inventory ORDER BY inv_id");
+}
+
+async function getInventoryDetail(inv_id) {
+  try {
+    const data = await pool.query(
+      `SELECT *
+       FROM public.inventory AS i 
+       WHERE i.inv_id = $1`,
+      [inv_id]
+    );
+    // console.log("Inventory Detail Data: ", data.rows[0]);
+    return data.rows;
+  } catch (error) {
+    console.error("inventory data error " + error);
+  }
+}
+
+module.exports = {
+  getClassifications,
+  getInventoryByClassificationId,
+  getInventory,
+  getInventoryDetail,
+};

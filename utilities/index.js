@@ -6,7 +6,6 @@ const Util = {};
  ************************** */
 Util.getNav = async function (req, res, next) {
   let data = await invModel.getClassifications();
-  // console.log(data);
   let list = "<ul>";
   list += '<li><a href = "/" title = "Home page">Home</a></li>';
   data.rows.forEach((row) => {
@@ -26,6 +25,7 @@ Util.getNav = async function (req, res, next) {
 };
 
 //Build the classification view HTML
+
 Util.buildClassificationGrid = async function (data) {
   // let data = await invModel.getInventoryByClassificationId();
   let grid;
@@ -75,6 +75,41 @@ Util.buildClassificationGrid = async function (data) {
     grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>';
   }
   return grid;
+};
+
+// Build Inventory Detail page HTML
+Util.buildInventoryDetailPage = async function (invModel, data) {
+  // let info = await invModel.getInventoryDetail();
+  let page;
+  if (Array.isArray(data) && data.length > 0) {
+    const row = data[0];
+    const price = new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+    }).format(row.inv_price);
+
+    page +=
+      "<title>" +
+      row.inv_year +
+      " " +
+      row.inv_make +
+      " " +
+      row.inv_model +
+      "</title>";
+    page +=
+      "<img src='" +
+      row.inv_image +
+      "' alt='" +
+      row.inv_year +
+      " " +
+      row.inv_make +
+      " " +
+      row.inv_model +
+      "' />";
+    page += "<p>" + row.inv_description + "</p>";
+    page += "<div> Price: " + price + "</div>";
+  }
+  return page;
 };
 
 // Error Handling
