@@ -221,6 +221,29 @@ section {
   margin-top: 1em;
 }
 
+/* Classification.ejs*/
+#inv-display {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2em;
+  text-align: center;
+}
+
+#inv-display li {
+  list-style-type: none;
+  border: 2px solid var(--main-accent);
+  border-radius: 10px;
+}
+
+#inv-display img {
+  border-radius: 10px;
+  height: 50%;
+}
+
+#inv-display .namePrice {
+  height: 50%;
+}
+
 @media only screen and (min-width: 768px) {
   /* body */
   body {
@@ -330,3 +353,4 @@ section {
     width: 45%;
   }
 }
+
