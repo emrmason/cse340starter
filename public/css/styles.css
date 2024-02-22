@@ -244,6 +244,27 @@ section {
   height: 50%;
 }
 
+/* inventory-detail.ejs */
+#vehicle-detail {
+  display: flex;
+  flex-direction: column;
+}
+
+#details-img {
+  width: 100%;
+  max-width: 100%;
+  min-width: 200px;
+}
+
+#details-list {
+  padding: 20px;
+}
+
+.vehicle-stats li{
+  list-style-type: none;
+  display: block;
+}
+
 @media only screen and (min-width: 768px) {
   /* body */
   body {
@@ -354,3 +375,18 @@ section {
   }
 }
 
+/* inventory-detail.ejs */
+#vehicle-detail {
+  display: flex;
+  flex-direction: row;
+}
+
+#details-img {
+  max-width: 50%;
+  height: auto;
+}
+
+#details-list {
+  flex-grow: 1;
+  padding: 20px;
+}

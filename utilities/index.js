@@ -98,8 +98,9 @@ Util.buildInventoryDetailPage = async function (data) {
       " " +
       row.inv_model +
       "</title>";
+    page += "<section id='vehicle-detail'>";
     page +=
-      "<div class='main-image'> <img src='" +
+      "<div id='details-img' class='main-image'> <img src='" +
       row.inv_image +
       "' alt='" +
       row.inv_year +
@@ -108,13 +109,13 @@ Util.buildInventoryDetailPage = async function (data) {
       " " +
       row.inv_model +
       "' /> </div>";
-
+    page += "<div id='details-list' class='details'>";
     page += "<ul class= 'vehicle-stats'>";
-    page += "<li> Price:" + price + "</li>";
-    page += "<li> Description:" + row.inv_description + "</li>";
+    page += "<li> Price: " + price + "</li>";
+    page += "<li> Description: " + row.inv_description + "</li>";
     page += "<li> Color: " + row.inv_color + "</li>";
     page += "<li> Miles: " + miles + "</li>";
-    page += "</ul>";
+    page += "</ul> </div> </section>";
   } else {
     page += '<p class="notice">Sorry, we could not find the detail page. </p>';
   }
