@@ -78,15 +78,17 @@ Util.buildClassificationGrid = async function (data) {
 };
 
 // Build Inventory Detail page HTML
-Util.buildInventoryDetailPage = async function (invModel, data) {
+Util.buildInventoryDetailPage = async function (data) {
   // let info = await invModel.getInventoryDetail();
-  let page;
-  if (Array.isArray(data) && data.length > 0) {
+  let page = "";
+  console.log(data);
+  if (data.length > 0) {
     const row = data[0];
     const price = new Intl.NumberFormat("en-US", {
       style: "currency",
       currency: "USD",
     }).format(row.inv_price);
+    const miles = row.inv_miles.toLocaleString("en-US");
 
     page +=
       "<title>" +
@@ -97,7 +99,7 @@ Util.buildInventoryDetailPage = async function (invModel, data) {
       row.inv_model +
       "</title>";
     page +=
-      "<img src='" +
+      "<div class='main-image'> <img src='" +
       row.inv_image +
       "' alt='" +
       row.inv_year +
@@ -105,9 +107,16 @@ Util.buildInventoryDetailPage = async function (invModel, data) {
       row.inv_make +
       " " +
       row.inv_model +
-      "' />";
-    page += "<p>" + row.inv_description + "</p>";
-    page += "<div> Price: " + price + "</div>";
+      "' /> </div>";
+
+    page += "<ul class= 'vehicle-stats'>";
+    page += "<li> Price:" + price + "</li>";
+    page += "<li> Description:" + row.inv_description + "</li>";
+    page += "<li> Color: " + row.inv_color + "</li>";
+    page += "<li> Miles: " + miles + "</li>";
+    page += "</ul>";
+  } else {
+    page += '<p class="notice">Sorry, we could not find the detail page. </p>';
   }
   return page;
 };
