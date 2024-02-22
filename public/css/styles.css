@@ -387,6 +387,6 @@ section {
 }
 
 #details-list {
-  flex-grow: 1;
+  width: 50%;
   padding: 20px;
 }
