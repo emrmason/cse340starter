@@ -251,18 +251,22 @@ section {
 }
 
 #details-img {
-  width: 100%;
+  display: block;
   max-width: 100%;
-  min-width: 200px;
+  min-width: 250px;
 }
 
 #details-list {
+  display:block;
   padding: 20px;
+  width: 100%;
+  font-size: 1.25rem;
 }
 
 .vehicle-stats li{
   list-style-type: none;
   display: block;
+  padding: 5px;
 }
 
 @media only screen and (min-width: 768px) {
@@ -377,7 +381,6 @@ section {
 
 /* inventory-detail.ejs */
 #vehicle-detail {
-  display: flex;
   flex-direction: row;
 }
 

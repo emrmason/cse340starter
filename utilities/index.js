@@ -81,7 +81,6 @@ Util.buildClassificationGrid = async function (data) {
 Util.buildInventoryDetailPage = async function (data) {
   // let info = await invModel.getInventoryDetail();
   let page = "";
-  console.log(data);
   if (data.length > 0) {
     const row = data[0];
     const price = new Intl.NumberFormat("en-US", {
@@ -110,11 +109,12 @@ Util.buildInventoryDetailPage = async function (data) {
       row.inv_model +
       "' /> </div>";
     page += "<div id='details-list' class='details'>";
+    page += "<h2>" + row.inv_make + " " + row.inv_model + " Details: </h2>";
     page += "<ul class= 'vehicle-stats'>";
-    page += "<li> Price: " + price + "</li>";
-    page += "<li> Description: " + row.inv_description + "</li>";
-    page += "<li> Color: " + row.inv_color + "</li>";
-    page += "<li> Miles: " + miles + "</li>";
+    page += "<li> <b>Price: " + price + "</b></li>";
+    page += "<li> <b>Description: </b>" + row.inv_description + "</li>";
+    page += "<li> <b>Color: </b>" + row.inv_color + "</li>";
+    page += "<li> <b>Miles: </b>" + miles + "</li>";
     page += "</ul> </div> </section>";
   } else {
     page += '<p class="notice">Sorry, we could not find the detail page. </p>';
