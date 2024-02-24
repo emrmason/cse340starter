@@ -43,7 +43,7 @@ async function getInventoryDetail(inv_id) {
     // console.log("Inventory Detail Data: ", data.rows[0]);
     return data.rows;
   } catch (error) {
-    console.error("inventory data error " + error);
+    console.error("Inventory Data error " + error);
   }
 }
 
