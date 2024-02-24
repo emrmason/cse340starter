@@ -245,20 +245,20 @@ section {
 }
 
 /* inventory-detail.ejs */
-#vehicle-detail {
+body #vehicle-detail {
   display: flex;
   flex-direction: column;
 }
 
-#details-img {
+body #details-img {
   display: block;
   max-width: 100%;
   min-width: 250px;
 }
 
-#details-list {
+body #details-list {
   display:block;
-  padding: 20px;
+  /* padding: 20px; */
   width: 100%;
   font-size: 1.25rem;
 }
@@ -377,19 +377,20 @@ section {
   #add-ons {
     width: 45%;
   }
-}
-
-/* inventory-detail.ejs */
-#vehicle-detail {
+  
+  /* inventory-detail.ejs */
+body #vehicle-detail {
   flex-direction: row;
 }
 
-#details-img {
+body #details-img {
   max-width: 50%;
   height: auto;
 }
 
-#details-list {
+body #details-list {
   width: 50%;
   padding: 20px;
 }
+}
+
