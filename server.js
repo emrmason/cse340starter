@@ -14,7 +14,29 @@ const baseController = require("./controllers/baseController");
 const inventoryRoute = require("./routes/inventoryRoute");
 const myErrorRoute = require("./routes/errorRoute");
 const utilities = require("./utilities/");
+const session = require("express-session");
+const pool = require("./database/");
 
+// Middleware
+app.use(
+  session({
+    store: new (require("connect-pg-simple")(session))({
+      createTableIfMissing: true,
+      pool,
+    }),
+    secret: process.env.SESSION_SECRET,
+    resave: true,
+    saveUninitialized: true,
+    name: "sessionId",
+  })
+);
+
+app.use(require("connect-flash")());
+
+app.use(function (req, res, next) {
+  res.locals.messages = require("express-messages")(req, res);
+  next();
+});
 /* ***********************
  * Routes
  *************************/
@@ -39,7 +61,7 @@ app.use(async (req, res, next) => {
 });
 
 //My error handler
-app.use("/", myErrorRoute);
+// app.use("/", myErrorRoute);
 
 app.use(async (req, res, next) => {
   let nav = await utilities.getNav();
@@ -53,21 +75,12 @@ app.use(async (req, res, next) => {
 app.use(async (err, req, res, next) => {
   let nav = await utilities.getNav();
   console.error(`Error at: "${req.originalUrl}": ${err.message}`);
-  if (err.status === 500 || req.originalUrl === "/myError") {
-    res.render("errors/myError"),
-      {
-        title: "My Error",
-        message: "I did this on purpose",
-        nav,
-      };
-  } else {
-    res.render("errors/error"),
-      {
-        title: err.status || "Server Error",
-        message: err.message,
-        nav,
-      };
-  }
+  // res.render("errors/error"),
+  //   {
+  //     title: err.status || "Server Error",
+  //     message: err.message,
+  //     nav,
+  //   };
 });
 
 /* ***********************
