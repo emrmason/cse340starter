@@ -13,7 +13,6 @@ const static = require("./routes/static");
 const baseController = require("./controllers/baseController");
 const inventoryRoute = require("./routes/inventoryRoute");
 const accountRoute = require("./routes/accountRoute");
-const errorRoute = require("./routes/errorRoute");
 const utilities = require("./utilities/");
 const session = require("express-session");
 const pool = require("./database/");
@@ -56,30 +55,26 @@ app.get("/", utilities.handleErrors(baseController.buildHome));
 //Inventory Routes
 app.use("/inv", inventoryRoute);
 
-// File Not Found Route
+//Account Routes
+app.use("/account", accountRoute);
+
+// // File Not Found Route
 app.use(async (req, res, next) => {
   next({ status: 404, message: "Sorry, we appear to have lost that page." });
 });
 
-//Account Routes
-app.use("/account", accountRoute);
-
-//My error handler
-app.use(errorRoute);
-
-// app.use(async (req, res, next) => {
-//   let nav = await utilities.getNav();
-//   res.handleMyError = (error) => {
-//     next(error);
-//   };
-//   next();
-// });
-
-//Express Error Handler
+// Express Error Handler
 app.use(async (err, req, res, next) => {
   let nav = await utilities.getNav();
   console.error(`Error at: "${req.originalUrl}": ${err.message}`);
-  res.render("error", {
+  let status = err.status || 500;
+  let message = err.message;
+  if (req.originalUrl === "/myError") {
+    status = 500;
+    message = "This is my HTTP Error, I added it on purpose.";
+  }
+
+  res.render("errors/error", {
     title: err.status || "Server Error",
     message: err.message,
     nav,
