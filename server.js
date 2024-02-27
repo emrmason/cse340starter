@@ -12,7 +12,8 @@ const app = express();
 const static = require("./routes/static");
 const baseController = require("./controllers/baseController");
 const inventoryRoute = require("./routes/inventoryRoute");
-const myErrorRoute = require("./routes/errorRoute");
+const accountRoute = require("./routes/accountRoute");
+const errorRoute = require("./routes/errorRoute");
 const utilities = require("./utilities/");
 const session = require("express-session");
 const pool = require("./database/");
@@ -60,8 +61,11 @@ app.use(async (req, res, next) => {
   next({ status: 404, message: "Sorry, we appear to have lost that page." });
 });
 
+//Account Routes
+app.use("/account", accountRoute);
+
 //My error handler
-// app.use("/", myErrorRoute);
+// app.use("/errors/", myErrorRoute);
 
 app.use(async (req, res, next) => {
   let nav = await utilities.getNav();

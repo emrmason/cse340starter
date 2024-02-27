@@ -269,6 +269,21 @@ body #details-list {
   padding: 5px;
 }
 
+/* Login Form Styling */
+
+#login-form-container {
+  max-width: 20%;
+  background-color:#01b0d3;
+  border: 3px solid gray;
+  border-radius: 10px; 
+}
+
+#login-form {
+  display: block;
+  width: fit-content;
+  padding: 10px;
+}
+
 @media only screen and (min-width: 768px) {
   /* body */
   body {
