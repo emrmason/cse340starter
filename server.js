@@ -65,26 +65,25 @@ app.use(async (req, res, next) => {
 app.use("/account", accountRoute);
 
 //My error handler
-// app.use("/errors/", myErrorRoute);
+app.use(errorRoute);
 
-app.use(async (req, res, next) => {
-  let nav = await utilities.getNav();
-  res.handleMyError = (error) => {
-    next(error);
-  };
-  next();
-});
+// app.use(async (req, res, next) => {
+//   let nav = await utilities.getNav();
+//   res.handleMyError = (error) => {
+//     next(error);
+//   };
+//   next();
+// });
 
 //Express Error Handler
 app.use(async (err, req, res, next) => {
   let nav = await utilities.getNav();
   console.error(`Error at: "${req.originalUrl}": ${err.message}`);
-  // res.render("errors/error"),
-  //   {
-  //     title: err.status || "Server Error",
-  //     message: err.message,
-  //     nav,
-  //   };
+  res.render("error", {
+    title: err.status || "Server Error",
+    message: err.message,
+    nav,
+  });
 });
 
 /* ***********************
