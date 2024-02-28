@@ -1,6 +1,6 @@
 const pool = require("../database/index");
-console.log("Current working directory:", process.cwd());
-console.log("__dirname:", __dirname);
+// console.log("Current working directory:", process.cwd());
+// console.log("__dirname:", __dirname);
 
 /* ***************************
  *  Get all classification data
