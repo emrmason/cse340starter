@@ -4,6 +4,10 @@ const accountController = require("../controllers/accountController");
 const utilities = require("../utilities");
 
 //Login View
-router.get("/login", accountController.buildLogin);
+router.get("/login", utilities.handleErrors(accountController.buildLogin));
+router.get(
+  "/register",
+  utilities.handleErrors(accountController.buildRegistration)
+);
 
 module.exports = router;

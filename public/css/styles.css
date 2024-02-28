@@ -271,7 +271,7 @@ body #details-list {
 
 /* Login Form Styling */
 
-#login-form-container {
+.form-container {
   margin: 0 auto;
   max-width: 25%;
   min-width: 300px;
@@ -281,18 +281,22 @@ body #details-list {
   padding: 20px; 
 }
 
-#login-form {
+.form {
   display: block;
   width: 100%;
   margin: 10px auto;
   padding: 10px;
+  font-weight: bold;
 }
 
-#email, #password {
+.form-field {
   width: 100%;
+  padding: 5px;
 }
 
-#login-button {
+.form-button {
+  font-size: 1.1rem;
+  font-weight: bold;
   margin: 10px auto;
   padding: 5px;
   width: 100%;

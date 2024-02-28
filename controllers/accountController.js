@@ -11,4 +11,27 @@ accountCont.buildLogin = async function (req, res, next) {
   });
 };
 
+// Build Registration view
+accountCont.buildRegistration = async function (req, res, next) {
+  let nav = await utilities.getNav();
+  res.render("./account/register", {
+    title: "Register",
+    nav,
+  });
+};
+
+// // Password Show/hide
+// const passButton = document.querySelector(".show-pass-btn");
+// passButton.addEventListener("click", function () {
+//   const passInput = document.getElementById("account_password");
+//   const type = passInput.getAttribute("type");
+//   if (type === "password") {
+//     passInput.setAttribute("type", "text");
+//     passButton.innerHTML = "Hide Password";
+//   } else {
+//     passInput.setAttribute("type", "password");
+//     passButton.innerHTML = "Show Password";
+//   }
+// });
+
 module.exports = accountCont;

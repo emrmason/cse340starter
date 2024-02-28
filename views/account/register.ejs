@@ -7,15 +7,18 @@
 <%- messages() %>
 
 <section class="form-container">
-    <form class="form">
+    <form class = "form">
+        <label for="account_firstname">First Name:</label>
+        <input type="text" class="form-field" id="account_firstname" name="account_firstname">
+        <label for="account_lastname">Last Name:</label>
+        <input type="text" class="form-field" id="account_lastname" name="account_lastname">
         <label for="account_email">Email: </label>
         <input type="text" class="form-field" id="account_email" name="account_email">
         <label for="account_password">Password: </label>
-        <input type="password" class="form-field" id="account_password">
+        <input type="password" class="form-field" id="account_password" name="account_password">
         <span class="show-pass-btn">Show Password</span><br> <br>
         <hr> 
-        <button type="submit" class="form-button" name="login">Login</button>
-        <p>No account? <a href="/account/register">Sign-up</a></p>
+        <button type="submit" class="form-button" name="register">Register</button>
     </form>
 </section>
 <script>
