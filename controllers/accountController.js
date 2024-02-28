@@ -1,12 +1,14 @@
 const utilities = require("../utilities/");
 
+const accountCont = {};
+
 //Build Login view
-async function buildLogin(req, res, next) {
+accountCont.buildLogin = async function (req, res, next) {
   let nav = await utilities.getNav();
-  res.render("account/login", {
+  res.render("./account/login", {
     title: "Login",
     nav,
   });
-}
+};
 
-module.exports = buildLogin;
+module.exports = accountCont;

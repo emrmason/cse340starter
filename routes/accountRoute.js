@@ -4,6 +4,6 @@ const accountController = require("../controllers/accountController");
 const utilities = require("../utilities");
 
 //Login View
-router.get("/login", utilities.handleErrors(accountController.buildLogin));
+router.get("/login", accountController.buildLogin);
 
 module.exports = router;
