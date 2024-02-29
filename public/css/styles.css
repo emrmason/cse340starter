@@ -302,6 +302,13 @@ body #details-list {
   width: 100%;
 }
 
+/* input:required:invalid, input:focus:invalid {
+  border: 2px solid hsla(350, 96, 43);
+}
+input:required:valid {
+  border: 2px solid hsla(101, 100, 35);
+} */
+
 @media only screen and (min-width: 768px) {
   /* body */
   body {
