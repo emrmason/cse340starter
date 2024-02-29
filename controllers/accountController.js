@@ -18,6 +18,7 @@ accountCont.buildRegistration = async function (req, res, next) {
   res.render("./account/register", {
     title: "Register",
     nav,
+    errors: null,
   });
 };
 
