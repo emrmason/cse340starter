@@ -19,4 +19,9 @@ router.post(
   utilities.handleErrors(accountController.registerAccount)
 );
 
+// Login POST
+router.post("/login", utilities.handleErrors(), (req, res) => {
+  res.status(200).send("login process");
+});
+
 module.exports = router;

@@ -1,6 +1,6 @@
 const utilities = require("../utilities/");
 const acctModel = require("../models/account-model");
-
+const bcrypt = require("bcryptjs");
 const accountCont = {};
 
 //Build Login view
@@ -31,12 +31,23 @@ accountCont.registerAccount = async function (req, res) {
     account_email,
     account_password,
   } = req.body;
+  let hashedPassword;
+  try {
+    hashedPassword = await bcrypt.hashSync(account_password, 10);
+  } catch (error) {
+    req.flash(
+      "notice",
+      "Sorry, there was an error processing the registration."
+    );
+  }
+
   const regResult = await acctModel.registerAccount(
     account_firstname,
     account_lastname,
     account_email,
-    account_password
+    hashedPassword
   );
+
   if (regResult) {
     req.flash(
       "notice",
@@ -53,6 +64,11 @@ accountCont.registerAccount = async function (req, res) {
       nav,
     });
   }
+  res.status(500).render("account/register", {
+    title: "Registration",
+    nav,
+    errors: null,
+  });
 };
 
 module.exports = accountCont;

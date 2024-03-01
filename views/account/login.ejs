@@ -7,9 +7,9 @@
 <%- messages() %>
 
 <section class="form-container">
-    <form class="form">
+    <form class="form" method="post">
         <label for="account_email">Email: </label>
-        <input type="email" class="form-field" id="account_email" name="account_email" placeholder="myemail@email.com" required><br>
+        <input type="email" class="form-field" id="account_email" name="account_email" placeholder="myemail@email.com" required value="<%= locals.account_email %>"><br>
         <label for="account_password">Password: </label>
         <input type="password" class="form-field" id="account_password" required placeholder="Enter your password here" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"><br>
         <span class="show-pass-btn">Show Password</span><p>Passwords must be at least 12 characters and include 

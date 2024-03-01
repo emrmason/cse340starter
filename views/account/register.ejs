@@ -18,11 +18,11 @@
     <form class = "form" action="/account/register" method="post">
       <p>All fields are required.</p>
         <label for="account_firstname">First Name:</label>
-        <input type="text" class="form-field" id="account_firstname" name="account_firstname" placeholder="Jane" required><br>
+        <input type="text" class="form-field" id="account_firstname" name="account_firstname" placeholder="Jane" required value="<%= locals.account_firstname %>"><br>
         <label for="account_lastname">Last Name:</label>
-        <input type="text" class="form-field" id="account_lastname" name="account_lastname" placeholder="Doe" required><br>
+        <input type="text" class="form-field" id="account_lastname" name="account_lastname" placeholder="Doe" required value="<%= locals.account_lastname %>"><br>
         <label for="account_email">Email: </label>
-        <input type="email" class="form-field" id="account_email" name="account_email" placeholder="myemail@email.com" required><br>
+        <input type="email" class="form-field" id="account_email" name="account_email" placeholder="myemail@email.com" required value="<%= locals.account_email %>"><br>
         <label for="account_password">Password: </label>
         <input type="password" class="form-field" id="account_password" name="account_password" placeholder="Choose a password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"><br>
         <span class="show-pass-btn">Show Password</span><p>Passwords must be at least 12 characters and include 
