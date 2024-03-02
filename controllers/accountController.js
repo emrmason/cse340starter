@@ -40,14 +40,12 @@ accountCont.registerAccount = async function (req, res) {
       "Sorry, there was an error processing the registration."
     );
   }
-
   const regResult = await acctModel.registerAccount(
     account_firstname,
     account_lastname,
     account_email,
     hashedPassword
   );
-
   if (regResult) {
     req.flash(
       "notice",
@@ -70,5 +68,14 @@ accountCont.registerAccount = async function (req, res) {
     errors: null,
   });
 };
+
+// accountCont.loginAccount() = async function (req, res) {
+//   let nav= await utilities.getNav();
+//   const {
+//     account_email,
+//     account_password
+//   } = req.body;
+
+// }
 
 module.exports = accountCont;

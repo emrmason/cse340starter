@@ -20,7 +20,7 @@ router.post(
 );
 
 // Login POST
-router.post("/login", utilities.handleErrors(), (req, res) => {
+router.post("/login", (req, res) => {
   res.status(200).send("login process");
 });
 
