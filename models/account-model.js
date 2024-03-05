@@ -23,6 +23,8 @@ acctModel.registerAccount = async function (
   }
 };
 
+// Check if the email is already in the database
+
 acctModel.checkExistingEmail = async function (account_email) {
   try {
     const sql = "SELECT * FROM account WHERE account_email = $1";
@@ -32,15 +34,5 @@ acctModel.checkExistingEmail = async function (account_email) {
     return error.message;
   }
 };
-
-// acctModel.checkLoginEmail = async function (account_email) {
-//   try {
-//     const sql = "SELECT * FROM account WHERE account_email = $1";
-//     const result = await pool.query(sql, [account_email]);
-//     return result.rowCount;
-//   } catch (error) {
-//     return error.message;
-//   }
-// };
 
 module.exports = acctModel;

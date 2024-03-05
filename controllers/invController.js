@@ -46,4 +46,51 @@ invCont.buildByInventoryId = async function (req, res, next) {
   }
 };
 
+// Build Management view
+
+invCont.buildMgmtView = async function (req, res, next) {
+  try {
+    let nav = await utilities.getNav();
+    res.render("./inventory/management", {
+      title: "Inventory Management",
+      nav,
+    });
+  } catch (error) {
+    res.send("Couldn't build Management page - ", error);
+  }
+};
+
+// Build Add-classification view
+invCont.buildAddClass = async function (req, res, next) {
+  try {
+    let nav = await utilities.getNav();
+    res.render("./inventory/add-classification", {
+      title: "Add Classification",
+      nav,
+    });
+  } catch (error) {
+    res.send("Couldn't build the view - ", error);
+  }
+};
+
+// Add classification to database
+invCont.addClass = async function (req, res, next) {
+  let nav = await utilities.getNav();
+  const { classification_name } = req.body;
+  console.log(req.body);
+  const addClassResult = await invModel.addNewClassification(
+    classification_name
+  );
+
+  if (addClassResult) {
+    res.render("./inventory/management", {
+      title: "Inventory Management",
+      nav,
+    });
+    req.flash("notice", "Classification added");
+  } else {
+    req.flash("notice", "Sorry, something went wrong. Please try again.");
+  }
+};
+
 module.exports = invCont;

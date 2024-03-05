@@ -69,13 +69,4 @@ accountCont.registerAccount = async function (req, res) {
   });
 };
 
-// accountCont.loginAccount() = async function (req, res) {
-//   let nav= await utilities.getNav();
-//   const {
-//     account_email,
-//     account_password
-//   } = req.body;
-
-// }
-
 module.exports = accountCont;
