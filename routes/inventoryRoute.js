@@ -16,9 +16,14 @@ router.get(
   "/add-classification",
   utilities.handleErrors(invController.buildAddClass)
 );
+router.get("/add-inventory", utilities.handleErrors(invController.buildAddInv));
 router.post(
   "/add-classification",
   utilities.handleErrors(invController.addClass)
+);
+router.post(
+  "/add-inventory",
+  utilities.handleErrors(invController.addInventory)
 );
 
 module.exports = router;

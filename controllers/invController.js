@@ -81,7 +81,6 @@ invCont.addClass = async function (req, res, next) {
   const addClassResult = await invModel.addNewClassification(
     classification_name
   );
-
   if (addClassResult) {
     res.render("./inventory/management", {
       title: "Inventory Management",
@@ -90,6 +89,64 @@ invCont.addClass = async function (req, res, next) {
     req.flash("notice", "Classification added");
   } else {
     req.flash("notice", "Sorry, something went wrong. Please try again.");
+    res.render("./inventory/add-classification", {
+      title: "Add Classification",
+      nav,
+    });
+  }
+};
+
+// Build Add-inventory View
+invCont.buildAddInv = async function (req, res, next) {
+  try {
+    let nav = await utilities.getNav();
+    res.render("./inventory/add-inventory", {
+      title: "Add Inventory",
+      nav,
+    });
+  } catch (error) {
+    res.send("Couldn't build the view - ", error);
+  }
+};
+
+invCont.addInventory = async function (req, res, next) {
+  const {
+    inv_make,
+    inv_model,
+    inv_year,
+    inv_description,
+    inv_image,
+    inv_thumbnail,
+    inv_price,
+    inv_miles,
+    inv_color,
+    classification_id,
+  } = req.body;
+  const invResult = await invModel.addInventory(
+    inv_make,
+    inv_model,
+    inv_year,
+    inv_description,
+    inv_image,
+    inv_thumbnail,
+    inv_price,
+    inv_miles,
+    inv_color,
+    classification_id
+  );
+  if (invResult) {
+    req.flash("notice", "Vehicle added to inventory.");
+    res.status(201).render("./inventory/managemet", {
+      title: "Inventory Management",
+      nav,
+    });
+  } else {
+    req.flash("notice", "Sorry, the vehicle could not be added.");
+    res.status(501).render("./inventory/add-inventory", {
+      title: "Add Inventory",
+      nav,
+      errors: null,
+    });
   }
 };
 

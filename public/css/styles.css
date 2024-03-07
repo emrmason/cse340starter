@@ -281,11 +281,25 @@ body #details-list {
   padding: 20px; 
 }
 
+.form-container-wide {
+  margin: 0 auto;
+  max-width: 70%;
+  min-width: 300px;
+  background-color: #01b0d3;
+  border: 3px solid gray;
+  border-radius: 10px;
+  padding: 20px;
+}
+
 .form {
   display: block;
   width: 100%;
   margin: 10px auto;
   padding: 10px;
+  font-weight: bold;
+}
+
+label {
   font-weight: bold;
 }
 
@@ -300,6 +314,11 @@ body #details-list {
   margin: 10px auto;
   padding: 5px;
   width: 100%;
+}
+
+.dropdown-1 {
+  width: 100%;
+  padding: 5px;
 }
 
 input:required:invalid, input:focus:invalid {
