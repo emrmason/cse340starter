@@ -77,16 +77,15 @@ invCont.buildAddClass = async function (req, res, next) {
 invCont.addClass = async function (req, res, next) {
   let nav = await utilities.getNav();
   const { classification_name } = req.body;
-  console.log(req.body);
-  const addClassResult = await invModel.addNewClassification(
-    classification_name
-  );
+  console.log(req.body, "This is from my invController");
+  const addClassResult = await invModel.addClass(classification_name);
   if (addClassResult) {
+    req.flash("notice", "Classification added");
+    let nav = await utilities.getNav();
     res.render("./inventory/management", {
       title: "Inventory Management",
       nav,
     });
-    req.flash("notice", "Classification added");
   } else {
     req.flash("notice", "Sorry, something went wrong. Please try again.");
     res.render("./inventory/add-classification", {
@@ -98,11 +97,25 @@ invCont.addClass = async function (req, res, next) {
 
 // Build Add-inventory View
 invCont.buildAddInv = async function (req, res, next) {
+  let options = "";
   try {
+    let data = await invModel.getClassifications();
+    console.log(data);
+    data.rows.forEach((row) => {
+      options +=
+        "<option value='" +
+        row.classification_id +
+        "' name = '" +
+        row.classification_id +
+        "'>" +
+        row.classification_name +
+        "</option>";
+    });
     let nav = await utilities.getNav();
     res.render("./inventory/add-inventory", {
       title: "Add Inventory",
       nav,
+      options,
     });
   } catch (error) {
     res.send("Couldn't build the view - ", error);
@@ -136,7 +149,7 @@ invCont.addInventory = async function (req, res, next) {
   );
   if (invResult) {
     req.flash("notice", "Vehicle added to inventory.");
-    res.status(201).render("./inventory/managemet", {
+    res.status(201).render("./inventory/management", {
       title: "Inventory Management",
       nav,
     });

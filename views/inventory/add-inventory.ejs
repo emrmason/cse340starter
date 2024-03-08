@@ -7,7 +7,8 @@
 <%- messages() %>
 
 <section class="form-container">
-    <form class="form-wide" action="/inv/add-inventory" method ="post">
+    <p><b>All fields are required.</b></p>
+    <form class="form" action="/inv/add-inventory" method ="post">
         <label for="inv_make">Make:</label>
         <input type="character varying" class="form-field" id="inv_make" required placeholder="Ford" value="<%= locals.inv_make %>">
         <label for="inv_model">Model:</label>
@@ -15,26 +16,21 @@
         <label for="inv_year">Year:</label>
         <input type="character" class="form-field" id="inv_year" required placeholder="1997" value="<%= locals.inv_year %>">
         <label for="inv_description">Description:</label>
-        <input type="text" class="form-field" id="inv_description" required placeholder="A brief description of the vehicle" value="<%= locals.inv_description %>">
+        <input type="text" class="form-field" name="inv_description" required placeholder="A brief description of the vehicle" value="<%= locals.inv_description %>">
         <label for="inv_image">Full Image File Path:</label>
-        <input type="character varying" class="form-field" id="inv_image" required placeholder="/images/vehicles/model.jpg" value="<%= locals.inv_image %>">
+        <input type="character varying" class="form-field" name="inv_image" required placeholder="/images/vehicles/model.jpg" value="<%= locals.inv_image %>">
         <label for="inv_thumbnail">Thumbnail Image File path:</label>
-        <input type="character varying" class="form-field" id="inv_thumbnail" required placeholder="/images/vehicles/model-tn.jpg" value="<%= locals.inv_thumbnail %>">
+        <input type="character varying" class="form-field" name="inv_thumbnail" required placeholder="/images/vehicles/model-tn.jpg" value="<%= locals.inv_thumbnail %>">
         <label for="inv_price">Price (numbers only):</label>
-        <input type="number" class="form-field" id="inv_price" required placeholder="23500" value="<%= locals.inv_price %>">
+        <input type="number" class="form-field" name="inv_price" required placeholder="23500" value="<%= locals.inv_price %>">
         <label for="inv_miles">Miles (numbers only):</label>
-        <input type="integer" class="form-field" id="inv_miles" required placeholder="157800" value="<%= locals.inv_miles %>">
+        <input type="integer" class="form-field" name="inv_miles" required placeholder="157800" value="<%= locals.inv_miles %>">
         <label for="inv_color">Color:</label>
-        <input type="character" class="form-field" id="inv_color" required placeholder="Silver" value="<%= locals.inv_color %>">
+        <input type="character" class="form-field" name="inv_color" required placeholder="Silver" value="<%= locals.inv_color %>">
         <label for="classification_id">Classification:</label>
         <select class="dropdown-1" name = "classification_id" id="classification_id">
-            <option value="0">Select</option>
-            <option value="1">Custom</option>
-            <option value="2">Sport</option>
-            <option value="3">SUV</option>
-            <option value="4">Truck</option>
-            <option value="5">Sedan</option>
-        </select><br><br>
+        <%- options %>
+        </select><br><br> 
         <hr>
         <button type="submit" class="form-button" name="add-inventory">Add</button>
     </form>

@@ -5,7 +5,7 @@ const invController = require("../controllers/invController");
 
 router.get(
   "/type/:classificationId",
-  utilities.handleErrors(invController.buildByClassificationId_)
+  utilities.handleErrors(invController.buildByClassificationId)
 );
 router.get(
   "/detail/:inventoryId",

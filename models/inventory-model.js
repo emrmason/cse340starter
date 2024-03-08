@@ -49,15 +49,19 @@ async function getInventoryDetail(inv_id) {
 
 // Add a new classification
 
-async function addNewClassification(classification_name) {
+async function addClass(classification_name) {
+  // console.log([classification_name], "This is from my inventory-model BEFORE");
   try {
     const sql =
       "INSERT INTO classification (classification_name) VALUES ($1) RETURNING *";
+    // console.log([classification_name], "This is from my inventory-model AFTER");
     return await pool.query(sql, [classification_name]);
   } catch (error) {
     return error.message;
   }
 }
+
+// Add Inventory
 
 async function addInventory(
   inv_make,
@@ -96,6 +100,6 @@ module.exports = {
   getInventoryByClassificationId,
   getInventory,
   getInventoryDetail,
-  addNewClassification,
+  addClass,
   addInventory,
 };

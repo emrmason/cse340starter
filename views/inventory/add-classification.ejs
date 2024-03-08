@@ -9,8 +9,8 @@
 <section class="form-container">
     <form class="form" action="/inv/add-classification" method ="post">
         <label for="classification_name">New Classification Name:</label>
-        <input type="text" class="form-field" id="classification_name" required placeholder="Sedan" value="<%= locals.classification_name %>">
+        <input type="text" class="form-field" id="classification_name" name = "classification_name" required placeholder="Sedan" value="<%= locals.classification_name %>">
         <p>(Cannot contain any spaces, numbers, or special characters.)</p><br>
-        <button type="submit" class="form-button" name="add-class">Add</button>
+        <button type="submit" class="form-button">Add</button>
     </form>
 </section>
