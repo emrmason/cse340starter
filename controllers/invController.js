@@ -98,6 +98,7 @@ invCont.addClass = async function (req, res, next) {
 // Build Add-inventory View
 invCont.buildAddInv = async function (req, res, next) {
   let options = "";
+  let nav = await utilities.getNav();
   try {
     let data = await invModel.getClassifications();
     console.log(data);
@@ -111,7 +112,6 @@ invCont.buildAddInv = async function (req, res, next) {
         row.classification_name +
         "</option>";
     });
-    let nav = await utilities.getNav();
     res.render("./inventory/add-inventory", {
       title: "Add Inventory",
       nav,
@@ -123,6 +123,7 @@ invCont.buildAddInv = async function (req, res, next) {
 };
 
 invCont.addInventory = async function (req, res, next) {
+  let nav = await utilities.getNav();
   const {
     inv_make,
     inv_model,
@@ -135,6 +136,7 @@ invCont.addInventory = async function (req, res, next) {
     inv_color,
     classification_id,
   } = req.body;
+  console.log(req.body, "This is from my invController");
   const invResult = await invModel.addInventory(
     inv_make,
     inv_model,
