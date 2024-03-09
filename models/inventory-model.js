@@ -61,6 +61,18 @@ async function addClass(classification_name) {
   }
 }
 
+// Check for existing classification
+
+async function checkExistingClassification(classification_name) {
+  try {
+    const sql = "SELECT * FROM classification WHERE classification_name = $1";
+    const className = await pool.query(sql, [classification_name]);
+    return className.rowCount;
+  } catch (error) {
+    return error.message;
+  }
+}
+
 // Add Inventory
 
 async function addInventory(
@@ -114,4 +126,5 @@ module.exports = {
   getInventoryDetail,
   addClass,
   addInventory,
+  checkExistingClassification,
 };

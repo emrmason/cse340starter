@@ -72,6 +72,7 @@ invCont.buildAddClass = async function (req, res, next) {
     res.render("./inventory/add-classification", {
       title: "Add Classification",
       nav,
+      errors: null,
     });
   } catch (error) {
     res.send("Couldn't build the view - ", error);
@@ -114,6 +115,7 @@ invCont.buildAddInv = async function (req, res, next) {
       title: "Add Inventory",
       nav,
       options,
+      errors: null,
     });
   } catch (error) {
     res.send("Couldn't build the view - ", error);

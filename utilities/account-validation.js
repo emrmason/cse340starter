@@ -1,4 +1,3 @@
-// const { ReturnDocument } = require("mongodb");
 const utilities = require(".");
 const { body, validationResult } = require("express-validator");
 const accountModel = require("../models/account-model");
@@ -54,7 +53,7 @@ validate.checkRegData = async (req, res, next) => {
   errors = validationResult(req);
   if (!errors.isEmpty()) {
     let nav = await utilities.getNav();
-    res.render("account/register", {
+    res.render("./account/register", {
       errors,
       title: "Registration",
       nav,

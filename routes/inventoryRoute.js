@@ -2,6 +2,7 @@ const express = require("express");
 const router = new express.Router();
 const utilities = require("../utilities");
 const invController = require("../controllers/invController");
+const invValidate = require("../utilities/inventory-validation");
 
 router.get(
   "/type/:classificationId",
@@ -19,10 +20,13 @@ router.get(
 router.get("/add-inventory", utilities.handleErrors(invController.buildAddInv));
 router.post(
   "/add-classification",
+  invValidate.addCategory,
   utilities.handleErrors(invController.addClass)
 );
 router.post(
   "/add-inventory",
+  invValidate.inventoryRules(),
+  invValidate.checkInvData,
   utilities.handleErrors(invController.addInventory)
 );
 
