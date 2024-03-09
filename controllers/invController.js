@@ -14,6 +14,11 @@ invCont.buildByClassificationId = async function (req, res, next) {
     const grid = await utilities.buildClassificationGrid(data);
     let nav = await utilities.getNav();
     const className = data[0].classification_name;
+    // res.render("./inventory/classification", {
+    //   title: className + " vehicles",
+    //   nav,
+    //   grid,
+    // });
     res.render("./inventory/classification", {
       title: className + " vehicles",
       nav,
@@ -81,17 +86,10 @@ invCont.addClass = async function (req, res, next) {
   const addClassResult = await invModel.addClass(classification_name);
   if (addClassResult) {
     req.flash("notice", "Classification added");
-    let nav = await utilities.getNav();
-    res.render("./inventory/management", {
-      title: "Inventory Management",
-      nav,
-    });
+    res.redirect("/inv");
   } else {
     req.flash("notice", "Sorry, something went wrong. Please try again.");
-    res.render("./inventory/add-classification", {
-      title: "Add Classification",
-      nav,
-    });
+    res.redirect("./inventory/add-classification");
   }
 };
 
@@ -122,6 +120,8 @@ invCont.buildAddInv = async function (req, res, next) {
   }
 };
 
+// Add Inventory
+
 invCont.addInventory = async function (req, res, next) {
   let nav = await utilities.getNav();
   const {
@@ -151,10 +151,7 @@ invCont.addInventory = async function (req, res, next) {
   );
   if (invResult) {
     req.flash("notice", "Vehicle added to inventory.");
-    res.status(201).render("./inventory/management", {
-      title: "Inventory Management",
-      nav,
-    });
+    res.redirect("/inv/add-inventory");
   } else {
     req.flash("notice", "Sorry, the vehicle could not be added.");
     res.status(501).render("./inventory/add-inventory", {
