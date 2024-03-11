@@ -20,12 +20,13 @@ router.get(
 router.get("/add-inventory", utilities.handleErrors(invController.buildAddInv));
 router.post(
   "/add-classification",
-  invValidate.addCategory,
+  invValidate.addClassificationRules(),
+  invValidate.checkClassificationData,
   utilities.handleErrors(invController.addClass)
 );
 router.post(
   "/add-inventory",
-  invValidate.inventoryRules(),
+  invValidate.addInventoryRules(),
   invValidate.checkInvData,
   utilities.handleErrors(invController.addInventory)
 );

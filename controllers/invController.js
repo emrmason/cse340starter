@@ -83,6 +83,7 @@ invCont.buildAddClass = async function (req, res, next) {
 invCont.addClass = async function (req, res, next) {
   let nav = await utilities.getNav();
   const { classification_name } = req.body;
+  console.log(classification_name, "This is from invCont.addClass");
   const addClassResult = await invModel.addClass(classification_name);
   if (addClassResult) {
     nav = await utilities.getNav();
@@ -103,21 +104,9 @@ invCont.addClass = async function (req, res, next) {
 
 // Build Add-inventory View
 invCont.buildAddInv = async function (req, res, next) {
-  let options = "";
+  let options = await utilities.buildClassificationList();
   let nav = await utilities.getNav();
   try {
-    let data = await invModel.getClassifications();
-    console.log(data);
-    data.rows.forEach((row) => {
-      options +=
-        "<option value='" +
-        row.classification_id +
-        "' name = '" +
-        row.classification_id +
-        "'>" +
-        row.classification_name +
-        "</option>";
-    });
     res.render("./inventory/add-inventory", {
       title: "Add Inventory",
       nav,
@@ -163,7 +152,7 @@ invCont.addInventory = async function (req, res, next) {
     req.flash("message success", `Vehicle ${itemName} was added to inventory.`);
     res.redirect("/inv/add-inventory");
   } else {
-    const classificationSelect = await utilities.buildClassificationGrid(); // I have questions about this...
+    const classificationSelect = await utilities.buildClassificationList();
     req.flash("message warning", "Sorry, the vehicle could not be added.");
     res.status(501).render("./inventory/add-inventory", {
       title: "Add Inventory",

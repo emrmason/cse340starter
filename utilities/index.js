@@ -122,6 +122,23 @@ Util.buildInventoryDetailPage = async function (data) {
   return page;
 };
 
+// Build Classification List for Add Inventory
+Util.buildClassificationList = async function (req, res, next) {
+  let data = await invModel.getClassifications();
+  let options = "";
+  data.rows.forEach((row) => {
+    options +=
+      "<option value='" +
+      row.classification_id +
+      "' name = '" +
+      row.classification_id +
+      "'>" +
+      row.classification_name +
+      "</option>";
+  });
+  return options;
+};
+
 // Error Handling
 Util.handleErrors = (fn) => (req, res, next) =>
   Promise.resolve(fn(req, res, next)).catch(next);

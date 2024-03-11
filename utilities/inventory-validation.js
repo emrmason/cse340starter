@@ -3,17 +3,19 @@ const { body, validationResult } = require("express-validator");
 const invModel = require("../models/inventory-model");
 const invValidate = {};
 
-// Validate add category - make sure it's not already there
+// Validate add classification rules
 
-invValidate.addCategory = () => {
+invValidate.addClassificationRules = () => {
   return [
-    body("category_name")
+    body("classification_name")
       .trim()
       .isLength({ min: 1 })
       .isAlpha()
-      .withMessage("Please add a category name."),
+      .withMessage("Please add a classification name."),
   ];
 };
+
+// Check add classification data
 
 invValidate.checkClassificationData = async (req, res, next) => {
   const { classification_name } = req.body;
@@ -47,8 +49,13 @@ invValidate.checkClassificationData = async (req, res, next) => {
 // };
 
 // Validate add inventory rules
-invValidate.inventoryRules = () => {
+invValidate.addInventoryRules = () => {
   return [
+    body("classification_id")
+      .trim()
+      .isInt({ no_symbols: true })
+      .withMessage("The vehicle's classification is required."),
+
     body("inv_make")
       .trim()
       .escape()
@@ -100,11 +107,6 @@ invValidate.inventoryRules = () => {
       .escape()
       .isLength({ min: 3 })
       .withMessage("Please provide a valid color."),
-
-    body("classification_id")
-      .trim()
-      .isInt({ no_symbols: true })
-      .withMessage("The vehicle's classification is required."),
   ];
 };
 
@@ -128,11 +130,12 @@ invValidate.checkInvData = async (req, res, next) => {
   // console.log(errors);
   if (!errors.isEmpty()) {
     let nav = await utilities.getNav();
-    let options = await invModel.getClassifications();
+    let options = await utilities.buildClassificationList();
     res.render("./inventory/add-inventory", {
       errors,
       title: "Add Inventory",
       nav,
+      options,
       inv_make,
       inv_model,
       inv_year,
@@ -142,7 +145,6 @@ invValidate.checkInvData = async (req, res, next) => {
       inv_price,
       inv_miles,
       inv_color,
-      options,
     });
     return;
   }
