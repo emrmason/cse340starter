@@ -83,14 +83,21 @@ invCont.buildAddClass = async function (req, res, next) {
 invCont.addClass = async function (req, res, next) {
   let nav = await utilities.getNav();
   const { classification_name } = req.body;
-  console.log(req.body, "This is from my invController");
   const addClassResult = await invModel.addClass(classification_name);
   if (addClassResult) {
-    req.flash("notice", "Classification added");
+    nav = await utilities.getNav();
+    req.flash("message success", "Classification added");
     res.redirect("/inv");
   } else {
-    req.flash("notice", "Sorry, something went wrong. Please try again.");
-    res.redirect("./inventory/add-classification");
+    req.flash(
+      "message warning",
+      "Sorry, something went wrong. Please try again."
+    );
+    res.status(501).render("inventory/add-classification", {
+      title: "Add Classification",
+      nav,
+      errors: null,
+    });
   }
 };
 
@@ -138,7 +145,7 @@ invCont.addInventory = async function (req, res, next) {
     inv_color,
     classification_id,
   } = req.body;
-  console.log(req.body, "This is from my invController");
+  // console.log(req.body, "This is from my invController");
   const invResult = await invModel.addInventory(
     inv_make,
     inv_model,
@@ -152,13 +159,16 @@ invCont.addInventory = async function (req, res, next) {
     classification_id
   );
   if (invResult) {
-    req.flash("notice", "Vehicle added to inventory.");
+    const itemName = invResult.inv_make + " " + invResult.inv_model;
+    req.flash("message success", `Vehicle ${itemName} was added to inventory.`);
     res.redirect("/inv/add-inventory");
   } else {
-    req.flash("notice", "Sorry, the vehicle could not be added.");
+    const classificationSelect = await utilities.buildClassificationGrid(); // I have questions about this...
+    req.flash("message warning", "Sorry, the vehicle could not be added.");
     res.status(501).render("./inventory/add-inventory", {
       title: "Add Inventory",
       nav,
+      classificationSelect: classificationSelect,
       errors: null,
     });
   }

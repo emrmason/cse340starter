@@ -9,65 +9,102 @@ invValidate.addCategory = () => {
   return [
     body("category_name")
       .trim()
-      .withMessage("Please add a category name.")
-      .custom(async (category_name) => {
-        const categoryExists = await invModel.checkExistingClassification(
-          classification_name
-        );
-        if (categoryExists) {
-          console.log("Category already exists, cannot add.");
-          throw new Error("Category already exists, cannot add.");
-        }
-      }),
+      .isLength({ min: 1 })
+      .isAlpha()
+      .withMessage("Please add a category name."),
   ];
 };
+
+invValidate.checkClassificationData = async (req, res, next) => {
+  const { classification_name } = req.body;
+  let errors = [];
+  errors = validationResult(req);
+  if (!errors.isEmtpy()) {
+    let nav = await utilities.getNav();
+    res.render("inventory/add-classification", {
+      errors,
+      title: "Add Classification",
+      nav,
+      classification_name,
+    });
+    return;
+  }
+  next();
+};
+
+//attempt at checking if the classification already exists...
+
+//       .custom(async (category_name) => {
+//         const categoryExists = await invModel.checkExistingClassification(
+//           classification_name
+//         );
+//         if (categoryExists) {
+//           console.log("Category already exists, cannot add.");
+//           throw new Error("Category already exists, cannot add.");
+//         }
+//       }),
+//   ];
+// };
 
 // Validate add inventory rules
 invValidate.inventoryRules = () => {
   return [
     body("inv_make")
       .trim()
-      .isLength({ min: 1 })
+      .escape()
+      .isLength({ min: 3 })
       .withMessage("Please provide the make of the vehicle."),
 
     body("inv_model")
-      .isLength({ min: 1 })
+      .trim()
+      .escape()
+      .isLength({ min: 3 })
       .withMessage("Please provide the model of the vehicle."),
 
     body("inv_year")
       .trim()
-      .isLength({ min: 4, max: 4 })
+      .isInt({ min: 1900, max: 2099 })
       .withMessage("Please provide the year the vehicle was built."),
 
     body("inv_description")
+      .trim()
+      .escape()
       .isLength({ min: 10 })
       .withMessage("Please provide a description of the vehicle."),
 
-    // body("inv_image")
-    //   .trim()
-    //   .withMessage(
-    //     "Check filepath. If you have no image, use this default: /images/vehicles/no-image.png "
-    //   ),
-
-    // body("inv_thumbnail")
-    //   .trim()
-    //   .withMessage(
-    //     "Check filepath. If you have no image, use this default: /images/vehicles/no-image-tn.png "
-    //   ),
-
-    body("inv_price")
+    body("inv_image")
       .trim()
-      .isLength({ min: 4, max: 9 })
-      .withMessage("Please provide a price (numbers only)."),
+      .isLength({ min: 6 })
+      .matches(/\.(jpg|jpeg|png|webp)$/)
+      .withMessage(
+        "Check filepath. If you have no image, use this default: /images/vehicles/no-image.png "
+      ),
+
+    body("inv_thumbnail")
+      .trim()
+      .isLength({ min: 6 })
+      .matches(/\.(jpg|jpeg|png|webp)$/)
+      .withMessage(
+        "Check filepath. If you have no image, use this default: /images/vehicles/no-image-tn.png "
+      ),
+
+    body("inv_price").trim().isDecimal().withMessage("Please provide a price."),
 
     body("inv_miles")
       .trim()
-      .isLength({ min: 2, max: 9 })
+      .isInt({ no_symbols: true })
       .withMessage("Please provide the mileage of the vehicle (numbers only."),
 
     body("inv_color")
+      .trim()
+      .escape()
       .isLength({ min: 3 })
       .withMessage("Please provide a valid color."),
+
+    body("classification_id")
+      .trim()
+      .isInt({ no_symbols: true })
+      .withMessage("The vehicle's classification is required."),
   ];
 };
 
@@ -88,7 +125,7 @@ invValidate.checkInvData = async (req, res, next) => {
   } = req.body;
   let errors = [];
   errors = validationResult(req);
-  console.log(errors);
+  // console.log(errors);
   if (!errors.isEmpty()) {
     let nav = await utilities.getNav();
     let options = await invModel.getClassifications();

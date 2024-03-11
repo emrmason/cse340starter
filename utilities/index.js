@@ -122,8 +122,6 @@ Util.buildInventoryDetailPage = async function (data) {
   return page;
 };
 
-// Build Inventory Management page HTML
-
 // Error Handling
 Util.handleErrors = (fn) => (req, res, next) =>
   Promise.resolve(fn(req, res, next)).catch(next);
