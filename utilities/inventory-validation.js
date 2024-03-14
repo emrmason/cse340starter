@@ -21,7 +21,7 @@ invValidate.checkClassificationData = async (req, res, next) => {
   const { classification_name } = req.body;
   let errors = [];
   errors = validationResult(req);
-  if (!errors.isEmtpy()) {
+  if (!errors.isEmpty()) {
     let nav = await utilities.getNav();
     res.render("inventory/add-classification", {
       errors,
