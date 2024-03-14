@@ -66,23 +66,43 @@ validate.checkRegData = async (req, res, next) => {
   next();
 };
 
-// // Check login data
-// validate.loginRules = () => {
-//   return [
-//     body("account_email")
-//       .trim()
-//       .isEmail()
-//       .normalizeEmail()
-//       .withMessage("A valid email is required.")
-//       .custom(async (account_email) => {
-//         const emailExists = await accountModel.checkLoginEmail(account_email);
-//         if (!emailExists) {
-//           throw new Error(
-//             "This email account isn't registered. Please sign up."
-//           );
-//         }
-//       }),
-//   ];
-// };
+// Check login data
+validate.loginRules = () => {
+  return [
+    body("account_email")
+      .trim()
+      .isEmail()
+      .normalizeEmail()
+      .withMessage("A valid email is required.")
+      .custom(async (account_email) => {
+        const emailExists = await accountModel.checkExistingEmail(
+          account_email
+        );
+        if (!emailExists) {
+          throw new Error(
+            "This email account isn't registered. Please sign up."
+          );
+        }
+      }),
+  ];
+};
+
+// Check data and return errors, or continue to account management
+validate.checkLoginData = async (req, res, next) => {
+  const { account_email } = req.body;
+  let errors = [];
+  errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav();
+    res.render("./account/login", {
+      errors,
+      title: "Login",
+      nav,
+      account_email,
+    });
+    return;
+  }
+  next();
+};
 
 module.exports = validate;
