@@ -2,8 +2,8 @@
 
 
 <section class="form-container">
-    <p><b>All fields are required.</b></p>
-    <form class="form" action="/inv/add-inventory" method ="post">
+    <p><b>All fields are required for editing a vehicle.</b></p>
+    <form class="form" id="updateForm" action="/inv/update" method ="post">
         <label for="inv_make">Make:</label>
         <input type="character varying" class="form-field" name="inv_make" required value="<%= locals.inv_make %>">
         <label for="inv_model">Model:</label>
@@ -16,7 +16,7 @@
         <input type="character varying" class="form-field" name="inv_image" required placeholder="Example: /images/vehicles/model.jpg" value="<%= locals.inv_image %>">
         <label for="inv_thumbnail">Thumbnail Image File path:</label>
         <input type="character varying" class="form-field" name="inv_thumbnail" required placeholder="Example: /images/vehicles/model-tn.jpg" value="<%= locals.inv_thumbnail %>">
-        <label for="inv_price">Price (numbers only):</label>
+        <label for="inv_price">Price:</label>
         <input type="integer" class="form-field" name="inv_price" required value="<%= locals.inv_price %>">
         <label for="inv_miles">Miles (numbers only):</label>
         <input type="integer" class="form-field" name="inv_miles" required value="<%= locals.inv_miles %>">
@@ -26,6 +26,9 @@
         <%- options %>
         <br><br> 
         <hr>
-        <input type="submit" class="form-button"></input>
+        <button type="submit" class="form-button" name="submit" disabled>Update Vehicle</button>
+        <input type="hidden" name="inv_id" <% if(locals.inv_id) { %> value="<%=locals.inv_id %>"<% } %>>
     </form>
 </section>
+
+<script src="../../js/inv-update.js"></script>

@@ -34,20 +34,6 @@ invValidate.checkClassificationData = async (req, res, next) => {
   next();
 };
 
-//attempt at checking if the classification already exists...
-
-//       .custom(async (category_name) => {
-//         const categoryExists = await invModel.checkExistingClassification(
-//           classification_name
-//         );
-//         if (categoryExists) {
-//           console.log("Category already exists, cannot add.");
-//           throw new Error("Category already exists, cannot add.");
-//         }
-//       }),
-//   ];
-// };
-
 // Validate add inventory rules
 invValidate.addInventoryRules = () => {
   return [
@@ -145,6 +131,47 @@ invValidate.checkInvData = async (req, res, next) => {
       inv_price,
       inv_miles,
       inv_color,
+    });
+    return;
+  }
+  next();
+};
+
+// Validate UPDATE Inventory Data
+invValidate.checkUpdateData = async (req, res, next) => {
+  const {
+    inv_make,
+    inv_model,
+    inv_year,
+    inv_description,
+    inv_image,
+    inv_thumbnail,
+    inv_price,
+    inv_miles,
+    inv_color,
+    inv_id,
+    classification_id,
+  } = req.body;
+  let errors = [];
+  errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav();
+    let options = await utilities.buildClassificationList();
+    res.render("./inventory/edit-inventory", {
+      errors,
+      title: "Edit " + inv_make + " " + inv_model,
+      nav,
+      options,
+      inv_make,
+      inv_model,
+      inv_year,
+      inv_description,
+      inv_image,
+      inv_thumbnail,
+      inv_price,
+      inv_miles,
+      inv_color,
+      inv_id,
     });
     return;
   }

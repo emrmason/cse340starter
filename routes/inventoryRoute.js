@@ -22,6 +22,10 @@ router.get(
   "/getInventory/:classificationId",
   utilities.handleErrors(invController.getInventoryJSON)
 );
+router.get(
+  "/edit/:inventoryId",
+  utilities.handleErrors(invController.buildEditInventory)
+);
 //POST Routes
 router.post(
   "/add-classification",
@@ -34,6 +38,12 @@ router.post(
   invValidate.addInventoryRules(),
   invValidate.checkInvData,
   utilities.handleErrors(invController.addInventory)
+);
+router.post(
+  "/update/",
+  invValidate.addInventoryRules(),
+  invValidate.checkUpdateData,
+  utilities.handleErrors(invController.updateInventory)
 );
 
 module.exports = router;

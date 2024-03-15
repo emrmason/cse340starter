@@ -128,7 +128,7 @@ Util.buildInventoryDetailPage = async function (data) {
 Util.buildClassificationList = async function (req, res, next) {
   let data = await invModel.getClassifications();
   let options =
-    "<select class='dropdown-1' id='classificationList' name='classification_id'>";
+    "<select class='dropdown-1' id='classificationList' name='classification_id'><option>Select One</option>";
   data.rows.forEach((row) => {
     options +=
       "<option value='" +
