@@ -43,7 +43,7 @@ acctModel.getAccountByEmail = async function (account_email) {
       "SELECT account_id, account_firstname, account_lastname, account_email, account_type, account_password FROM account WHERE account_email = $1",
       [account_email]
     );
-    console.log(result.rows[0], "this is from acctModel.getAccountByEmail");
+    // console.log(result.rows[0], "this is from acctModel.getAccountByEmail");
     return result.rows[0];
   } catch (error) {
     return new Error("No matching email found");
