@@ -89,7 +89,7 @@ accountCont.accountLogin = async function (req, res) {
   let nav = await utilities.getNav();
   const { account_email, account_password } = req.body;
   const accountData = await acctModel.getAccountByEmail(account_email);
-  // console.log(accountData, "This is from accountCont.accountLogin");
+  // console.log("This is from accountCont.accountLogin");
   if (!accountData) {
     req.flash("notice", "Please check your credentials and try again.");
     res.status(400).render("./account/login", {
@@ -100,37 +100,30 @@ accountCont.accountLogin = async function (req, res) {
     });
     return;
   } else {
-    try {
-      if (
-        await bcrypt.compare(account_password, accountData.account_password)
-      ) {
-        delete accountData.account_password;
-        const accessToken = jwt.sign(
-          accountData,
-          process.env.ACCESS_TOKEN_SECRET,
-          {
-            expiresIn: 3600 * 1000,
-          }
-        );
-        if (process.env.NODE_ENV === "development") {
-          res.cookie("jwt", accessToken, {
-            httpOnly: true,
-            maxAge: 3600 * 1000,
-          });
-        } else {
-          res.cookie("jwt", accessToken, {
-            httpOnly: true,
-            secure: true,
-            maxAge: 3600 * 1000,
-          });
+    if (await bcrypt.compare(account_password, accountData.account_password)) {
+      delete accountData.account_password;
+      const accessToken = jwt.sign(
+        accountData,
+        process.env.ACCESS_TOKEN_SECRET,
+        {
+          expiresIn: 3600 * 1000,
         }
-        console.log(
-          "This is where the user should be redirected to '/account/'"
-        ); // The process isn't hitting this mark...
-        return res.redirect("./account/");
+      );
+      if (process.env.NODE_ENV === "development") {
+        console.log("Development Mode -from accountCont.accountLogin");
+        res.cookie("jwt", accessToken, {
+          httpOnly: true,
+          maxAge: 3600 * 1000,
+        });
+      } else {
+        res.cookie("jwt", accessToken, {
+          httpOnly: true,
+          secure: true,
+          maxAge: 3600 * 1000,
+        });
       }
-    } catch (error) {
-      return new Error("Access Forbidden");
+      console.log("This is where the user should be redirected to '/account/'"); // The process isn't hitting this mark unless the bcrypt stuff is commented out...
+      return res.redirect("./");
     }
   }
 };
