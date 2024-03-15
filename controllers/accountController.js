@@ -111,7 +111,7 @@ accountCont.accountLogin = async function (req, res) {
         }
       );
       if (process.env.NODE_ENV === "development") {
-        console.log("Development Mode -from accountCont.accountLogin");
+        // console.log("Development Mode -from accountCont.accountLogin");
         res.cookie("jwt", accessToken, {
           httpOnly: true,
           maxAge: 3600 * 1000,
@@ -123,7 +123,9 @@ accountCont.accountLogin = async function (req, res) {
           maxAge: 3600 * 1000,
         });
       }
-      console.log("This is where the user should be redirected to '/account/'"); // The process isn't hitting this mark unless the bcrypt stuff is commented out...
+      // console.log(
+      //   "This is where the user should be redirected to '/account/'(accountController.accountLogin)"
+      // );
       return res.redirect("./");
     }
   }

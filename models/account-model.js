@@ -50,4 +50,8 @@ acctModel.getAccountByEmail = async function (account_email) {
   }
 };
 
+// Get account by Id
+// acctModel.getAccountById = async function (){
+
+// }
 module.exports = acctModel;
