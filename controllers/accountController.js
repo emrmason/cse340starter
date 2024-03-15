@@ -90,6 +90,7 @@ accountCont.accountLogin = async function (req, res) {
   const { account_email, account_password } = req.body;
   const accountData = await acctModel.getAccountByEmail(account_email);
   // console.log("This is from accountCont.accountLogin");
+  console.log(account_password, accountData.account_password);
   if (!accountData) {
     req.flash("notice", "Please check your credentials and try again.");
     res.status(400).render("./account/login", {
