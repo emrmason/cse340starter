@@ -14,11 +14,6 @@ invCont.buildByClassificationId = async function (req, res, next) {
     const grid = await utilities.buildClassificationGrid(data);
     let nav = await utilities.getNav();
     const className = data[0].classification_name;
-    // res.render("./inventory/classification", {
-    //   title: className + " vehicles",
-    //   nav,
-    //   grid,
-    // });
     res.render("./inventory/classification", {
       title: className + " vehicles",
       nav,
@@ -35,7 +30,6 @@ invCont.buildByInventoryId = async function (req, res, next) {
   const inventory_id = req.params.inventoryId;
   try {
     const data = await invModel.getInventoryDetail(inventory_id);
-    // console.log(data);
     const page = await utilities.buildInventoryDetailPage(data);
     let nav = await utilities.getNav();
     const invMake = data[0].inv_make;
@@ -56,9 +50,11 @@ invCont.buildByInventoryId = async function (req, res, next) {
 invCont.buildMgmtView = async function (req, res, next) {
   try {
     let nav = await utilities.getNav();
+    const classificationSelect = await utilities.buildClassificationList();
     res.render("./inventory/management", {
       title: "Inventory Management",
       nav,
+      classificationSelect,
     });
   } catch (error) {
     res.send("Couldn't build Management page - ", error);
@@ -160,6 +156,20 @@ invCont.addInventory = async function (req, res, next) {
       classificationSelect: classificationSelect,
       errors: null,
     });
+  }
+};
+
+// Get Inventory JSON by Classification
+invCont.getInventoryJSON = async (req, res, next) => {
+  const classification_id = parseInt(req.params.classificationId);
+  console.log(classification_id, "This is from invController.getInventoryJSON");
+  const invData = await invModel.getInventoryByClassificationId(
+    classification_id
+  );
+  if (invData[0].inv_id) {
+    return res.json(invData);
+  } else {
+    next(new Error("No data returned."));
   }
 };
 

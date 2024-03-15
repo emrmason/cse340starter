@@ -127,7 +127,8 @@ Util.buildInventoryDetailPage = async function (data) {
 // Build Classification List for Add Inventory
 Util.buildClassificationList = async function (req, res, next) {
   let data = await invModel.getClassifications();
-  let options = "";
+  let options =
+    "<select class='dropdown-1' id='classificationList' name='classification_id'>";
   data.rows.forEach((row) => {
     options +=
       "<option value='" +
@@ -138,6 +139,7 @@ Util.buildClassificationList = async function (req, res, next) {
       row.classification_name +
       "</option>";
   });
+  options += "</select>";
   return options;
 };
 

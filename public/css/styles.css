@@ -329,6 +329,20 @@ input:valid {
   background-color: lightgreen;
 }
 
+/* Table styling for Inventory Management */
+#inventoryDisplay {
+  min-width: 400px;
+  margin: 0 auto;
+  padding: 10px; 
+  border: 2px solid gray;
+  border-radius: 10px;
+}
+
+#inventoryDisplay tbody td {
+  border: 2px solid gray;
+  padding: 10px; 
+}
+
   @media only screen and (min-width: 768px) {
   /* body */
   body {
