@@ -3,6 +3,7 @@ const router = new express.Router();
 const utilities = require("../utilities");
 const invController = require("../controllers/invController");
 const invValidate = require("../utilities/inventory-validation");
+
 //GET Routes
 router.get(
   "/type/:classificationId",
@@ -26,6 +27,11 @@ router.get(
   "/edit/:inventoryId",
   utilities.handleErrors(invController.buildEditInventory)
 );
+router.get(
+  "/delete/:inventoryId",
+  utilities.handleErrors(invController.buildDeleteInventory)
+);
+
 //POST Routes
 router.post(
   "/add-classification",
@@ -45,5 +51,6 @@ router.post(
   invValidate.checkUpdateData,
   utilities.handleErrors(invController.updateInventory)
 );
+router.post("/delete/", utilities.handleErrors(invController.deleteInventory));
 
 module.exports = router;

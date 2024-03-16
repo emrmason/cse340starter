@@ -204,6 +204,8 @@ invCont.buildEditInventory = async function (req, res, next) {
   }
 };
 
+// Process inventory updates
+
 invCont.updateInventory = async function (req, res, next) {
   let nav = await utilities.getNav();
   const {
@@ -259,6 +261,59 @@ invCont.updateInventory = async function (req, res, next) {
       inv_miles,
       inv_color,
       classification_id,
+    });
+  }
+};
+
+// Build Delete inventory view
+invCont.buildDeleteInventory = async function (req, res, next) {
+  const inventory_id = parseInt(req.params.inventoryId);
+  let nav = await utilities.getNav();
+  const itemData = await invModel.getInventoryDetail(inventory_id);
+  console.log(
+    itemData[0].inv_make,
+    "This is from invCont.buildDeleteInventory"
+  );
+  const itemName = `${itemData[0].inv_make} ${itemData[0].inv_model}`;
+  try {
+    res.render("./inventory/delete-confirm", {
+      title: "Delete " + itemName,
+      nav,
+      errors: null,
+      inv_id: itemData[0].inv_id,
+      inv_make: itemData[0].inv_make,
+      inv_model: itemData[0].inv_model,
+      inv_year: itemData[0].inv_year,
+      inv_price: itemData[0].inv_price,
+    });
+  } catch (error) {
+    res.send("Couldn't build the view - ", error);
+  }
+};
+
+// Process Delete inventory
+invCont.deleteInventory = async function (req, res, next) {
+  let nav = await utilities.getNav();
+  const inventory_id = req.body.inv_id;
+  const itemName = req.body.inv_make + " " + req.body.inv_model;
+  console.log(inventory_id);
+  const { inv_id, inv_make, inv_model, inv_price, inv_year } = req.body;
+  const deleteResult = await invModel.deleteInventory(inventory_id);
+  if (deleteResult) {
+    req.flash("notice", `The ${itemName} was successfully deleted.`);
+    res.redirect("/inv/");
+  } else {
+    const itemName = `${inv_make} ${inv_model}`;
+    req.flash("notice", "Sorry, the deletion failed.");
+    res.status(501).render("inventory/delete-confirm", {
+      title: "Delete " + itemName,
+      nav,
+      errors: null,
+      inv_id,
+      inv_make,
+      inv_model,
+      inv_year,
+      inv_price,
     });
   }
 };
