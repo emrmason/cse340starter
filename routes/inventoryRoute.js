@@ -13,22 +13,33 @@ router.get(
   "/detail/:inventoryId",
   utilities.handleErrors(invController.buildByInventoryId)
 );
-router.get("/", utilities.handleErrors(invController.buildMgmtView));
+router.get(
+  "/",
+  utilities.checkEmployeeAuth,
+  utilities.handleErrors(invController.buildMgmtView)
+);
 router.get(
   "/add-classification",
+  // utilities.checkEmployeeAuth,
   utilities.handleErrors(invController.buildAddClass)
 );
-router.get("/add-inventory", utilities.handleErrors(invController.buildAddInv));
+router.get(
+  "/add-inventory",
+  // utilities.checkEmployeeAuth,
+  utilities.handleErrors(invController.buildAddInv)
+);
 router.get(
   "/getInventory/:classificationId",
   utilities.handleErrors(invController.getInventoryJSON)
 );
 router.get(
   "/edit/:inventoryId",
+  // utilities.checkEmployeeAuth,
   utilities.handleErrors(invController.buildEditInventory)
 );
 router.get(
   "/delete/:inventoryId",
+  // utilities.checkEmployeeAuth,
   utilities.handleErrors(invController.buildDeleteInventory)
 );
 

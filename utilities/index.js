@@ -182,6 +182,26 @@ Util.checkLogin = (req, res, next) => {
   }
 };
 
+// Use for Employees/Admin
+Util.checkEmployeeAuth = (req, res, next) => {
+  if (!res.locals.loggedin) {
+    req.flash("notice", "Please log in.");
+    return res.redirect("./account/login");
+  }
+  if (res.locals.loggedin) {
+    const accountData = res.locals.accountData;
+    if (
+      accountData.account_type === "Employee" ||
+      accountData.account_type === "Admin"
+    ) {
+      next();
+    } else {
+      req.flash("notice", "You're not authorized to view this content.");
+      res.redirect("./account/login");
+    }
+  }
+};
+
 // Error Handling
 Util.handleErrors = (fn) => (req, res, next) =>
   Promise.resolve(fn(req, res, next)).catch(next);
