@@ -45,6 +45,8 @@ app.use(utilities.checkJWTToken);
 
 app.use(function (req, res, next) {
   res.locals.messages = require("express-messages")(req, res);
+  res.locals.tools =
+    '<a title="Click to log in" href="/account/login">My Account</a>';
   next();
 });
 /* ***********************

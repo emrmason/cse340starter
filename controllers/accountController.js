@@ -89,8 +89,7 @@ accountCont.accountLogin = async function (req, res) {
   let nav = await utilities.getNav();
   const { account_email, account_password } = req.body;
   const accountData = await acctModel.getAccountByEmail(account_email);
-  // console.log("This is from accountCont.accountLogin");
-  // console.log(account_password, accountData.account_password);
+  const accountType = accountData.account_type;
   if (!accountData) {
     req.flash("notice", "Please check your credentials and try again.");
     res.status(400).render("./account/login", {
@@ -111,7 +110,6 @@ accountCont.accountLogin = async function (req, res) {
         }
       );
       if (process.env.NODE_ENV === "development") {
-        // console.log("Development Mode -from accountCont.accountLogin");
         res.cookie("jwt", accessToken, {
           httpOnly: true,
           maxAge: 3600 * 1000,
@@ -123,9 +121,6 @@ accountCont.accountLogin = async function (req, res) {
           maxAge: 3600 * 1000,
         });
       }
-      // console.log(
-      //   "This is where the user should be redirected to '/account/'(accountController.accountLogin)"
-      // );
       return res.redirect("./");
     }
   }
