@@ -165,23 +165,6 @@ Util.checkJWTToken = (req, res, next) => {
   }
 };
 
-// Authorization
-Util.checkLogin = (req, res, next) => {
-  if (res.locals.loggedin) {
-    const accountData = res.locals.accountData;
-    let tools = "";
-    tools += `<a title="Click to manage your account" href="/account/">Welcome ${accountData.account_firstname}</a>`;
-    tools += `<a title="Click to Logout href="/account/logout">Logout</a>`;
-    res.locals.tools = tools;
-    next();
-  } else {
-    res.locals.tools =
-      '<a title="Click to log in" href="/account/login">My Account</a>';
-    req.flash("notice", "Please log in.");
-    return res.redirect("./login");
-  }
-};
-
 // Use for Employees/Admin
 Util.checkEmployeeAuth = (req, res, next) => {
   if (!res.locals.loggedin) {

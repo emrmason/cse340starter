@@ -20,12 +20,12 @@ router.get(
 );
 router.get(
   "/add-classification",
-  // utilities.checkEmployeeAuth,
+  utilities.checkEmployeeAuth,
   utilities.handleErrors(invController.buildAddClass)
 );
 router.get(
   "/add-inventory",
-  // utilities.checkEmployeeAuth,
+  utilities.checkEmployeeAuth,
   utilities.handleErrors(invController.buildAddInv)
 );
 router.get(
@@ -34,12 +34,12 @@ router.get(
 );
 router.get(
   "/edit/:inventoryId",
-  // utilities.checkEmployeeAuth,
+  utilities.checkEmployeeAuth,
   utilities.handleErrors(invController.buildEditInventory)
 );
 router.get(
   "/delete/:inventoryId",
-  // utilities.checkEmployeeAuth,
+  utilities.checkEmployeeAuth,
   utilities.handleErrors(invController.buildDeleteInventory)
 );
 

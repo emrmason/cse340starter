@@ -29,11 +29,29 @@ accountCont.buildRegistration = async function (req, res, next) {
 //Build Account Management view
 accountCont.buildMgmt = async function (req, res, next) {
   let nav = await utilities.getNav();
-  res.render("./account/", {
-    title: "Account Management",
-    nav,
-    errors: null,
-  });
+  let name = res.locals.accountData.account_firstname;
+  let accountType = res.locals.accountData.account_type;
+  let content = "";
+  content += `<h2>Welcome ${name}!</h2>`;
+  content +=
+    '<a href="./account/update" title="Click to update your account">Update account information</a>';
+  if (accountType === "Client") {
+    res.render("./account/", {
+      title: "Account Management",
+      nav,
+      errors: null,
+      content,
+    });
+  } else {
+    content += "<br> <br> <h3>Inventory Management</h3>";
+    content += "<p><a href='/inv/'>Click to access Inventory Management</a><p>"; // I need help with this href, it's trying to go to /account/inv...
+    res.render("./account/", {
+      title: "Account Management",
+      nav,
+      errors: null,
+      content,
+    });
+  }
 };
 
 // Process Registration
@@ -89,7 +107,6 @@ accountCont.accountLogin = async function (req, res) {
   let nav = await utilities.getNav();
   const { account_email, account_password } = req.body;
   const accountData = await acctModel.getAccountByEmail(account_email);
-  const accountType = accountData.account_type;
   if (!accountData) {
     req.flash("notice", "Please check your credentials and try again.");
     res.status(400).render("./account/login", {
