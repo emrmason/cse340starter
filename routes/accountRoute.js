@@ -36,4 +36,16 @@ router.post(
   utilities.handleErrors(accountController.accountLogin)
 );
 
+//POST Account Info
+router.post(
+  "/update/",
+  utilities.handleErrors(accountController.updateAccount)
+);
+
+// POST Password Change
+router.post(
+  "/update/",
+  utilities.handleErrors(accountController.changePassword)
+);
+
 module.exports = router;

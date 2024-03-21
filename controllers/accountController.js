@@ -65,6 +65,7 @@ accountCont.buildUpdate = async function (req, res, next) {
       title: "Update Account",
       nav,
       errors: null,
+      account_id: account_id,
       account_firstname: accountData[0].account_firstname,
       account_lastname: accountData[0].account_lastname,
       account_email: accountData[0].account_email,
@@ -162,5 +163,54 @@ accountCont.accountLogin = async function (req, res) {
     }
   }
 };
+
+// Process Account Updates
+accountCont.updateAccount = async function (req, res) {
+  let nav = await utilities.getNav();
+  const { account_id, account_firstname, account_lastname, account_email } =
+    req.body;
+  // console.log("Account Controller ", req.body);
+  const updateResult = await acctModel.updateAccount(
+    account_id,
+    account_firstname,
+    account_lastname,
+    account_email
+  );
+  if (updateResult) {
+    req.flash("message", `Your account has been updated.`);
+    // let content = "<h3>Updated Account Info:</h3><hr>";
+    // content += `<p>First Name: ${updateResult[0].account_firstname}</p>`;
+    // content += `<p>Last Name: ${updateResult[0].account_lastname}</p>`;
+    // content += `<p>Email: ${updateResult[0].account_email}</p>`;
+    // res.render("./account", {
+    //   title: "Account Management",
+    //   nav,
+    //   errors: null,
+    //   content,
+    // });
+    // delete updateResult.account_password;
+    // console.log(res.locals.accountData);
+    const accessToken = jwt.sign(
+      updateResult,
+      process.env.ACCESS_TOKEN_SECRET,
+      {
+        expiresIn: 3600 * 1000,
+      }
+    );
+    res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 });
+    res.redirect("/account/");
+  } else {
+    req.flash("notice", "Sorry, the update failed.");
+    res.status(501).render("./account/update", {
+      title: "Update Account",
+      nav,
+      account_firstname,
+      account_lastname,
+      account_email,
+    });
+  }
+};
+
+// Process Password Changes
 
 module.exports = accountCont;
