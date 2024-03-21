@@ -179,7 +179,7 @@ invCont.buildEditInventory = async function (req, res, next) {
   let options = await utilities.buildClassificationList();
   let nav = await utilities.getNav();
   const itemData = await invModel.getInventoryDetail(inventory_id);
-  console.log(itemData[0].inv_make, "This is from invCont.buildEditInventory");
+  // console.log(itemData[0].inv_make, "This is from invCont.buildEditInventory");
   const itemName = `${itemData[0].inv_make} ${itemData[0].inv_model}`;
   try {
     res.render("./inventory/edit-inventory", {

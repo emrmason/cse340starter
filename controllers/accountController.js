@@ -31,10 +31,10 @@ accountCont.buildMgmt = async function (req, res, next) {
   let nav = await utilities.getNav();
   let name = res.locals.accountData.account_firstname;
   let accountType = res.locals.accountData.account_type;
+  let account_id = res.locals.accountData.account_id;
   let content = "";
   content += `<h2>Welcome ${name}!</h2>`;
-  content +=
-    '<a href="./account/update" title="Click to update your account">Update account information</a>';
+  content += `<a href="./update/${account_id}" title="Click to update your account">Update account information</a>`;
   if (accountType === "Client") {
     res.render("./account/", {
       title: "Account Management",
@@ -51,6 +51,26 @@ accountCont.buildMgmt = async function (req, res, next) {
       errors: null,
       content,
     });
+  }
+  return account_id;
+};
+
+// Build Account Update view with data populated
+accountCont.buildUpdate = async function (req, res, next) {
+  let nav = await utilities.getNav();
+  const account_id = req.params.accountId;
+  const accountData = await acctModel.getAccountById(account_id);
+  try {
+    res.render("./account/update", {
+      title: "Update Account",
+      nav,
+      errors: null,
+      account_firstname: accountData[0].account_firstname,
+      account_lastname: accountData[0].account_lastname,
+      account_email: accountData[0].account_email,
+    });
+  } catch (error) {
+    res.send(error);
   }
 };
 

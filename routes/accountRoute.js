@@ -12,7 +12,13 @@ router.get(
   utilities.handleErrors(accountController.buildRegistration)
 );
 // Account Management view
-router.get("/", utilities.handleErrors(accountController.buildMgmt)); // Removed: utilities.checkLogin,
+router.get("/", utilities.handleErrors(accountController.buildMgmt));
+
+// Account Update view
+router.get(
+  "/update/:accountId",
+  utilities.handleErrors(accountController.buildUpdate)
+);
 
 // Register POST
 router.post(

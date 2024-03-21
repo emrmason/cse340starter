@@ -32,6 +32,7 @@ async function getInventory() {
   return await pool.query("SELECT * FROM public.inventory ORDER BY inv_id");
 }
 
+// Get single inventory data by Id
 async function getInventoryDetail(inv_id) {
   try {
     const data = await pool.query(
