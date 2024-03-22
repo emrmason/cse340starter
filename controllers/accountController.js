@@ -160,6 +160,14 @@ accountCont.accountLogin = async function (req, res) {
         });
       }
       return res.redirect("./");
+    } else {
+      req.flash("notice", "Please check your credentials and try again.");
+      res.status(400).render("./account/login", {
+        title: "Login",
+        nav,
+        errors: null,
+        account_email,
+      });
     }
   }
 };
@@ -178,16 +186,6 @@ accountCont.updateAccount = async function (req, res) {
   );
   if (updateResult) {
     req.flash("message", `Your account has been updated.`);
-    // let content = "<h3>Updated Account Info:</h3><hr>";
-    // content += `<p>First Name: ${updateResult[0].account_firstname}</p>`;
-    // content += `<p>Last Name: ${updateResult[0].account_lastname}</p>`;
-    // content += `<p>Email: ${updateResult[0].account_email}</p>`;
-    // res.render("./account", {
-    //   title: "Account Management",
-    //   nav,
-    //   errors: null,
-    //   content,
-    // });
     // delete updateResult.account_password;
     // console.log(res.locals.accountData);
     const accessToken = jwt.sign(
@@ -197,11 +195,11 @@ accountCont.updateAccount = async function (req, res) {
         expiresIn: 3600 * 1000,
       }
     );
-    res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 });
+    res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 }); // Thanks again, Bro. Stephenson!
     res.redirect("/account/");
   } else {
     req.flash("notice", "Sorry, the update failed.");
-    res.status(501).render("./account/update", {
+    res.status(501).render("./account/update/", {
       title: "Update Account",
       nav,
       account_firstname,
@@ -212,5 +210,39 @@ accountCont.updateAccount = async function (req, res) {
 };
 
 // Process Password Changes
+accountCont.changePassword = async function (req, res) {
+  let nav = await utilities.getNav();
+  const { account_password, account_id } = req.body;
+  // console.log("accountCont.changePassword account ID", account_id);
+  let hashedPassword;
+  try {
+    hashedPassword = bcrypt.hashSync(account_password, 10);
+  } catch (error) {
+    req.flash("notice", "Sorry, there was a hashing error.");
+  }
+  const changeResult = await acctModel.changePassword(
+    account_id,
+    hashedPassword
+  );
+  // console.log("accountCont.changePassword changeResult", changeResult);
+  if (changeResult) {
+    const accessToken = jwt.sign(
+      changeResult,
+      process.env.ACCESS_TOKEN_SECRET,
+      {
+        expiresIn: 3600 * 1000,
+      }
+    );
+    res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 }); // Thanks again, Bro. Stephenson!
+    req.flash("message", "Your password was successfully changed.");
+    res.redirect("/account/");
+  } else {
+    req.flash("notice", "Sorry, there was an error changing your password.");
+    res.status(501).render("/account/update/", {
+      title: "Update Account",
+      nav,
+    });
+  }
+};
 
 module.exports = accountCont;

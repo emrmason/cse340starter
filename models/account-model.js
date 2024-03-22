@@ -57,7 +57,7 @@ acctModel.getAccountById = async function (account_id) {
       "SELECT * FROM public.account AS a WHERE a.account_id = $1",
       [account_id]
     );
-    console.log("Account Data: ", data);
+    // console.log("Account Data: ", data);
     return data.rows;
   } catch (error) {
     console.error("Account Data error " + error);
@@ -81,18 +81,20 @@ acctModel.updateAccount = async function (
       account_id,
     ]);
     // console.log("Account Model ", data.rows);
-    return data.rows;
+    return data.rows[0];
   } catch (error) {
     console.error("Account Update Model error " + error);
   }
 };
 
 // Change password function
-acctModel.changePassword = async function (account_id, account_password) {
+acctModel.changePassword = async function (account_id, hashedPassword) {
+  // console.log("acctModel.changePassword account ID ", account_id);
   try {
     const sql =
       "UPDATE public.account SET account_password = $1 WHERE account_id = $2 RETURNING *";
-    const data = await pool.query(sql, [account_password, account_id]);
+    const data = await pool.query(sql, [hashedPassword, account_id]);
+    // console.log("acctModel.changePassword", data.rows[0].account_firstname);
     return data.rows[0];
   } catch (error) {
     console.error("Password change model error " + error);

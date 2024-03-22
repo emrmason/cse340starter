@@ -20,6 +20,13 @@ router.get(
   utilities.handleErrors(accountController.buildUpdate)
 );
 
+// Logout
+router.get("/logout", function (req, res) {
+  res.clearCookie("sessionId");
+  res.clearCookie("jwt");
+  res.redirect("../");
+});
+
 // Register POST
 router.post(
   "/register",
@@ -38,13 +45,13 @@ router.post(
 
 //POST Account Info
 router.post(
-  "/update/",
+  "/update/account",
   utilities.handleErrors(accountController.updateAccount)
 );
 
 // POST Password Change
 router.post(
-  "/update/",
+  "/update/password",
   utilities.handleErrors(accountController.changePassword)
 );
 
