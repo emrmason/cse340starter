@@ -195,7 +195,7 @@ Util.buildPartsGrid = async function (req, res, next) {
     // console.log("From Util.buildPartsGrid ", data);
     let partspage = "";
     if (data.length > 0) {
-      partspage += '<ul id="parts-display">';
+      partspage += '<ul id="inv-display">';
       data.forEach((part) => {
         partspage +=
           '<li> <a href="../parts/detail/' +
@@ -208,7 +208,7 @@ Util.buildPartsGrid = async function (req, res, next) {
           '" alt = "Image of ' +
           part.part_name +
           ' on CSE Motors"> </a>';
-        partspage += '<div class="parts-price"> <hr />';
+        partspage += '<div class="namePrice"> <hr />';
         partspage +=
           '<h2><a href="../parts/detail/' +
           part.part_id +

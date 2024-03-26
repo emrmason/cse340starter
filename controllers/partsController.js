@@ -8,7 +8,7 @@ partsCont.buildPartsView = async function (req, res, next) {
   let nav = await utilities.getNav();
   try {
     const partspage = await utilities.buildPartsGrid();
-    res.render("./parts", {
+    res.render("./parts/parts", {
       title: "Parts",
       nav,
       errors: null,
