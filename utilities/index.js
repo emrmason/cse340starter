@@ -1,4 +1,5 @@
 const invModel = require("../models/inventory-model");
+const partsModel = require("../models/parts-model");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const Util = {};
@@ -22,6 +23,8 @@ Util.getNav = async function (req, res, next) {
       "</a>";
     list += "</li>";
   });
+  list +=
+    '<li><a href="/parts" title="See what parts we offer for purchase">Parts</a></li>';
   list += "</ul>";
   return list;
 };
@@ -183,6 +186,47 @@ Util.checkEmployeeAuth = (req, res, next) => {
       res.redirect("./account/login");
     }
   }
+};
+
+// Build Parts Page
+Util.buildPartsGrid = async function (req, res, next) {
+  let data = await partsModel.getParts();
+  let partspage = "";
+  if (data.length > 0) {
+    partspage += '<ul id="parts-display">';
+    data.rows.forEach((part) => {
+      partspage +=
+        '<li> <a href="../parts/detail/' +
+        part.part_id +
+        'title= "View ' +
+        part.part_name +
+        'details"' +
+        '<img src="' +
+        part.part_thumbnail +
+        '" alt = "Image of ' +
+        part.part_name +
+        ' on CSE Motors"> </a>';
+      partspage += '<div class="parts-price> <hr />';
+      partspage +=
+        '<h2><a href="../parts/detail/' +
+        part.part_id +
+        'title= "View ' +
+        part.part_name +
+        'details"</a>' +
+        part.part_name +
+        "</h2>";
+      partspage +=
+        "<span>$" +
+        new Intl.NumberFormat("en-US").format(part.part_price) +
+        "</span>";
+      partspage += "</div>";
+      partspage += "</li>";
+    });
+    partspage += "</ul>";
+  } else {
+    partspage += '<p class="notice">Sorry, no parts could be found.</p>';
+  }
+  return partspage;
 };
 
 // Error Handling

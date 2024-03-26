@@ -14,54 +14,54 @@ INSERT INTO public.parts (
         part_description,
         part_image,
         part_thumbnail,
-        part_price,
+        part_price
     )
 VALUES (
         'Flux Capacitor',
         'Going to the future? You will not get there (or then) without one of these babies!',
         './images/parts/flux-cap.jpg',
         './images/parts/flux-cap-tn.jpg',
-        2500,
+        2500
     ),
     (
         'Muffler Bearings',
         'Car too loud for you? Let us help you with some new muffler bearings. These could make all the difference.',
         './images/parts/muffler-bearing.jpg',
         './images/parts/muffler-bearing-tn.jpg',
-        500,
+        500
     ),
     (
         'Headlight Fluid',
         'Your lights will never be brighter than if you keep your headlight fluid fresh!',
         './images/parts/headlight-fluid.jpg',
         './images/parts/headlight-fluid-tn.jpg',
-        150,
+        150
     ),
     (
         'Blinker Fluid',
         'Are your blinker signals slowing down, speeding up, or just not working? Blinker Fluid could be the answer to the problem.',
         './images/parts/blinker-fluid.jpg',
         './images/parts/blinker-fluid-tn.jpg',
-        100,
+        100
     ),
     (
         'Round Tuit',
         'Sometimes you just need to get a... this.',
         './images/parts/round-tuit.jpg',
         './images/parts/round-tuit-tn.jpg',
-        2000,
+        2000
     ),
     (
         'Passing Gear Fluid',
         'If your car struggles to get past some of the quicker cars on the road these days, this is for you.',
         './images/parts/passing-gear-fluid.jpg',
         './images/parts/passing-gear-fluid-tn.jpg',
-        120,
+        120
     ),
     (
         'No-Touch Wiper Blades',
         'You will never have an easier time in any rain storm.',
         './images/parts/no-image.png',
         './images/parts/no-image-tn.png',
-        2000,
-    ),
+        20
+    );
