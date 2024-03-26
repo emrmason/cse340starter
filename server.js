@@ -13,6 +13,7 @@ const static = require("./routes/static");
 const baseController = require("./controllers/baseController");
 const inventoryRoute = require("./routes/inventoryRoute");
 const accountRoute = require("./routes/accountRoute");
+const partsRoute = require("./routes/partsRoute");
 const utilities = require("./utilities/");
 const session = require("express-session");
 const pool = require("./database/");
@@ -67,6 +68,9 @@ app.use("/inv", inventoryRoute);
 
 //Account Routes
 app.use("/account", accountRoute);
+
+// Parts Routes
+app.use("/parts", partsRoute);
 
 // // File Not Found Route
 app.use(async (req, res, next) => {

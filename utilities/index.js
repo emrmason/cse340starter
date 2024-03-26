@@ -190,43 +190,49 @@ Util.checkEmployeeAuth = (req, res, next) => {
 
 // Build Parts Page
 Util.buildPartsGrid = async function (req, res, next) {
-  let data = await partsModel.getParts();
-  let partspage = "";
-  if (data.length > 0) {
-    partspage += '<ul id="parts-display">';
-    data.rows.forEach((part) => {
-      partspage +=
-        '<li> <a href="../parts/detail/' +
-        part.part_id +
-        'title= "View ' +
-        part.part_name +
-        'details"' +
-        '<img src="' +
-        part.part_thumbnail +
-        '" alt = "Image of ' +
-        part.part_name +
-        ' on CSE Motors"> </a>';
-      partspage += '<div class="parts-price> <hr />';
-      partspage +=
-        '<h2><a href="../parts/detail/' +
-        part.part_id +
-        'title= "View ' +
-        part.part_name +
-        'details"</a>' +
-        part.part_name +
-        "</h2>";
-      partspage +=
-        "<span>$" +
-        new Intl.NumberFormat("en-US").format(part.part_price) +
-        "</span>";
-      partspage += "</div>";
-      partspage += "</li>";
-    });
-    partspage += "</ul>";
-  } else {
-    partspage += '<p class="notice">Sorry, no parts could be found.</p>';
+  try {
+    let data = await partsModel.getParts();
+    // console.log("From Util.buildPartsGrid ", data);
+    let partspage = "";
+    if (data.length > 0) {
+      partspage += '<ul id="parts-display">';
+      data.forEach((part) => {
+        partspage +=
+          '<li> <a href="../parts/detail/' +
+          part.part_id +
+          '" title= "View ' +
+          part.part_name +
+          'details">' +
+          '<img src="' +
+          part.part_thumbnail +
+          '" alt = "Image of ' +
+          part.part_name +
+          ' on CSE Motors"> </a>';
+        partspage += '<div class="parts-price"> <hr />';
+        partspage +=
+          '<h2><a href="../parts/detail/' +
+          part.part_id +
+          '" title= "View ' +
+          part.part_name +
+          'details">' +
+          part.part_name +
+          "</a></h2>";
+        partspage +=
+          "<span>$" +
+          new Intl.NumberFormat("en-US").format(part.part_price) +
+          "</span>";
+        partspage += "</div>";
+        partspage += "</li>";
+      });
+      partspage += "</ul>";
+    } else {
+      partspage += '<p class="notice">Sorry, no parts could be found.</p>';
+    }
+    return partspage;
+  } catch (error) {
+    console.error("Error in buildPartsGrid: ", error);
+    throw error;
   }
-  return partspage;
 };
 
 // Error Handling

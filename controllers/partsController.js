@@ -11,9 +11,12 @@ partsCont.buildPartsView = async function (req, res, next) {
     res.render("./parts", {
       title: "Parts",
       nav,
+      errors: null,
       partspage,
     });
   } catch (error) {
     res.send("Couldn't build parts page - ", error);
   }
 };
+
+module.exports = partsCont;
