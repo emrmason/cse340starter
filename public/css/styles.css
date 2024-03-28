@@ -345,6 +345,30 @@ input:valid {
   padding: 10px; 
 }
 
+/* Styling for Parts Detail Page */
+body #part-detail {
+  display: flex;
+  flex-direction: column;
+}
+
+body #part-img {
+  display: block;
+  min-width: 250px;
+}
+
+body #part-details-list {
+  display:block;
+  /* padding: 20px; */
+  width: 100%;
+  font-size: 1.25rem;
+}
+
+.parts-stats li{
+  list-style-type: none;
+  display: block;
+  padding: 5px;
+}
+
   @media only screen and (min-width: 768px) {
   /* body */
   body {
@@ -468,5 +492,20 @@ body #details-list {
   width: 50%;
   padding: 20px;
 }
+
+  /* parts-detail.ejs */
+  body #part-detail {
+    flex-direction: row;
+  }
+  
+  body #part-img {
+    max-width: 50%;
+    height: auto;
+  }
+  
+  body #part-details-list {
+    width: 50%;
+    padding: 20px;
+  }
 }
 

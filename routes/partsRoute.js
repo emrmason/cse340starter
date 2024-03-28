@@ -5,4 +5,9 @@ const partsController = require("../controllers/partsController");
 
 router.get("/", utilities.handleErrors(partsController.buildPartsView));
 
+router.get(
+  "/detail/:part_id",
+  utilities.handleErrors(partsController.buildPartsDetail)
+);
+
 module.exports = router;

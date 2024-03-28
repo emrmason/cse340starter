@@ -235,6 +235,42 @@ Util.buildPartsGrid = async function (req, res, next) {
   }
 };
 
+// Build Part Detail Page
+Util.buildPartDetailPage = async function (data) {
+  let partDetail = "";
+  // console.log("Util.buildPartDetailPage - ", row.part_image);
+  try {
+    if (data.length > 0) {
+      const row = data[0];
+      const price = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+      }).format(row.part_price);
+      partDetail += "<title>" + row.part_name + "</title>";
+      partDetail += '<section id = "part-detail">';
+      partDetail +=
+        "<div id='part-img' class='main-image'> <img src='" +
+        row.part_image +
+        "' alt='" +
+        row.part_name +
+        "' /> </div>";
+      partDetail += "<div id='part-details-list' class='details'>";
+      partDetail += "<h2>" + row.part_name + " Details: </h2>";
+      partDetail += "<ul class= 'parts-stats'>";
+      partDetail += "<li> <b>Price: " + price + "</b></li>";
+      partDetail +=
+        "<li> <b>Description: </b>" + row.part_description + "</li>";
+      partDetail += "</ul> </div> </section>";
+    } else {
+      partDetail +=
+        '<p class="notice">Sorry, we could not find the detail for your part. </p>';
+    }
+    return partDetail;
+  } catch (error) {
+    console.error("Util.BuildPartDetailPage error - ", error);
+  }
+};
+
 // Error Handling
 Util.handleErrors = (fn) => (req, res, next) =>
   Promise.resolve(fn(req, res, next)).catch(next);

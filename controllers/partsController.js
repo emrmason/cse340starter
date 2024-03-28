@@ -19,4 +19,24 @@ partsCont.buildPartsView = async function (req, res, next) {
   }
 };
 
+// Build parts detail view
+partsCont.buildPartsDetail = async function (req, res, next) {
+  const part_id = req.params.part_id;
+  try {
+    const data = await partsModel.getPartDetail(part_id);
+    // console.log("partsCont.buildPartsDetail - ", data[0]);
+    const partDetail = await utilities.buildPartDetailPage(data);
+    let nav = await utilities.getNav();
+    const partName = data[0].part_name;
+    res.render("./parts/detail", {
+      title: partName,
+      nav,
+      errors: null,
+      partDetail,
+    });
+  } catch (error) {
+    res.send("Couldn't build page - ", error);
+  }
+};
+
 module.exports = partsCont;
