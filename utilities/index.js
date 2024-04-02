@@ -202,7 +202,7 @@ Util.buildPartsGrid = async function (req, res, next) {
           part.part_id +
           '" title= "View ' +
           part.part_name +
-          'details">' +
+          ' details">' +
           '<img src="' +
           part.part_thumbnail +
           '" alt = "Image of ' +

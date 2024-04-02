@@ -10,8 +10,9 @@
 <ul class='management'> 
     <li class='addClassification'><a href='/inv/add-classification'>Add Classification</a> </li><br>
     <li class='addInventory'><a href='/inv/add-inventory'>Add Inventory</a> </li> <br> 
+    <li class='addParts'><a href='/parts/add-part'>Add Parts</a> </li> <br> 
 </ul>
-
+<hr>
 <h2>Manage Inventory</h2>
 <p>Select a classification from the dropdown list to view items in that classification.</p><br>
 <%- classificationSelect %>
@@ -19,3 +20,10 @@
 <table id="inventoryDisplay"></table>
 <noscript>JavaScript must be enabled to use this page</noscript>
 <script src="../../js/inventory.js"></script>
+<br> <br>
+<hr>
+<h2>Manage Parts</h2>
+<p>Select a part from the table below to edit or delete.</p>
+<table id="partsDisplay"></table>
+<noscript>JavaScript must be enabled to use this page</noscript>
+<script src="../../js/parts.js"></script>

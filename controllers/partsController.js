@@ -39,4 +39,48 @@ partsCont.buildPartsDetail = async function (req, res, next) {
   }
 };
 
+// Build add-part view
+partsCont.buildAddPartView = async function (req, res, next) {
+  try {
+    let nav = await utilities.getNav();
+    res.render("./parts/add-part", {
+      title: "Add Part",
+      nav,
+      errors: null,
+    });
+  } catch (error) {
+    res.send("Couldn't build add-part view - ", error);
+  }
+};
+
+// Add part to database
+partsCont.addPart = async function (req, res, next) {
+  let nav = await utilities.getNav();
+  const {
+    part_name,
+    part_description,
+    part_image,
+    part_thumbnail,
+    part_price,
+  } = req.body;
+  const addPartResult = await partsModel.addPart(
+    part_name,
+    part_description,
+    part_image,
+    part_thumbnail,
+    part_price
+  );
+  if (addPartResult) {
+    const partName = addPartResult.part_name;
+    req.flash("message success", `Your part ${partName} was added.`);
+    res.redirect("./parts/add-part");
+  } else {
+    req.flash("message warning", "Sorry, the part coudl not be added.");
+    res.status(501).render("./parts/add-part", {
+      title: "Add Part",
+      nav,
+      errors: null,
+    });
+  }
+};
 module.exports = partsCont;

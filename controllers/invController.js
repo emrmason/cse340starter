@@ -79,7 +79,7 @@ invCont.buildAddClass = async function (req, res, next) {
 invCont.addClass = async function (req, res, next) {
   let nav = await utilities.getNav();
   const { classification_name } = req.body;
-  console.log(classification_name, "This is from invCont.addClass");
+  // console.log(classification_name, "This is from invCont.addClass");
   const addClassResult = await invModel.addClass(classification_name);
   if (addClassResult) {
     nav = await utilities.getNav();

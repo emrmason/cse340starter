@@ -61,7 +61,28 @@ VALUES (
     (
         'No-Touch Wiper Blades',
         'You will never have an easier time in any rain storm.',
-        './images/parts/no-image.png',
+        '/images/parts/no-image.png',
         './images/parts/no-image-tn.png',
         20
+    ),
+    (
+        'Flame Decals',
+        'Nothing can make your car look more amazing than FLAMES!',
+        '/images/parts/flame.jpg',
+        '/images/parts/flame.jpg',
+        55
+    ),
+    (
+        'Bumper Stickers',
+        'Impress your friends with your coding knowledge by showing off the first assignment anyone ever completes- Hello World.',
+        '/images/parts/bumper_sticker.jpg',
+        '/images/parts/bumper_sticker.jpg',
+        15
+    ),
+    (
+        'Hub Caps',
+        'Cover up ugly wheels with these fantastic fixtures!',
+        '/images/parts/hub-cap.jpg',
+        '/images/parts/hub-cap.jpg',
+        150
     );
