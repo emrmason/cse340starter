@@ -83,4 +83,20 @@ partsCont.addPart = async function (req, res, next) {
     });
   }
 };
+
+// Get just the parts data
+partsCont.getPartsData = async function (req, res, next) {
+  try {
+    const data = await partsModel.getParts();
+    res.json(data);
+  } catch (error) {
+    console.error(
+      "Problem fetching parts data (from parts controller) - ",
+      error
+    );
+  }
+};
+
+// Update parts
+
 module.exports = partsCont;

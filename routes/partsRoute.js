@@ -6,6 +6,8 @@ const partsValidate = require("../utilities/parts-validation");
 
 router.get("/", utilities.handleErrors(partsController.buildPartsView));
 
+router.get("/api/parts", utilities.handleErrors(partsController.getPartsData));
+
 router.get(
   "/detail/:part_id",
   utilities.handleErrors(partsController.buildPartsDetail)
@@ -24,7 +26,7 @@ router.post(
 );
 
 router.post(
-  "/update/"
+  "/update/:part_id"
   // invValidate.addInventoryRules(),
   // invValidate.checkUpdateData,
   // utilities.handleErrors(invController.updateInventory)

@@ -344,6 +344,17 @@ input:valid {
   border: 2px solid gray;
   padding: 10px; 
 }
+#partsDisplay {
+  min-width: 400px;
+  margin: 0 auto;
+  padding: 10px; 
+  border-radius: 10px;
+}
+
+#partsDisplay tbody td {
+  border: 2px solid gray;
+  padding: 10px; 
+}
 
 /* Styling for Parts Detail Page */
 body #part-detail {
