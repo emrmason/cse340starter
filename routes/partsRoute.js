@@ -18,6 +18,17 @@ router.get(
   utilities.handleErrors(partsController.buildAddPartView)
 );
 
+router.get(
+  "/update/:part_id",
+  utilities.checkEmployeeAuth,
+  utilities.handleErrors(partsController.buildUpdateParts)
+);
+router.get(
+  "/delete/:part_id",
+  utilities.checkEmployeeAuth,
+  utilities.handleErrors(partsController.buildDeletePart)
+);
+
 router.post(
   "/add-part",
   partsValidate.addPartsRules(),
@@ -31,6 +42,9 @@ router.post(
   utilities.handleErrors(partsController.buildUpdateParts)
 );
 
-// router.post("/delete/", utilities.handleErrors(partsController.deleteInventory));
+router.post(
+  "/delete/",
+  utilities.handleErrors(partsController.deleteInventory)
+);
 
 module.exports = router;

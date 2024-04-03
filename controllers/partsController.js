@@ -99,13 +99,13 @@ partsCont.getPartsData = async function (req, res, next) {
 
 // Build update parts view
 partsCont.buildUpdateParts = async function (req, res, next) {
-  const part_id = parseInt(req.params.partId);
+  const part_id = req.params.part_id;
   let nav = await utilities.getNav();
   const partData = await partsModel.getPartDetail(part_id);
   const partName = `${partData[0].part_name}`;
   try {
     res.render("./parts/update-part", {
-      title: "Update" + partName,
+      title: "Update " + partName,
       nav,
       errors: null,
       part_id: partData[0].part_id,
@@ -122,17 +122,18 @@ partsCont.buildUpdateParts = async function (req, res, next) {
 
 // Build Delete Parts view
 partsCont.buildDeletePart = async function (req, res, next) {
-  const part_id = parseInt(req.params.partId);
+  const part_id = req.params.part_id;
   let nav = await utilities.getNav();
   const itemData = await partsModel.getPartDetail(part_id);
   console.log(itemData[0].part_name, "This is from partsCont.buildDeletePart");
   const itemName = `${itemData[0].part_name}`;
   try {
-    res.render("./part/delete-confirm", {
+    res.render("./parts/delete-confirm", {
       title: "Delete " + itemName,
       nav,
       errors: null,
       part_id: itemData[0].part_id,
+      part_name: itemData[0].part_name,
       part_description: itemData[0].part_description,
       part_price: itemData[0].part_price,
     });
