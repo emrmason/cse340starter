@@ -26,11 +26,11 @@ router.post(
 );
 
 router.post(
-  "/update/:part_id"
-  // invValidate.addInventoryRules(),
-  // invValidate.checkUpdateData,
-  // utilities.handleErrors(invController.updateInventory)
+  "/update/:part_id",
+  utilities.checkEmployeeAuth,
+  utilities.handleErrors(partsController.buildUpdateParts)
 );
-// router.post("/delete/", utilities.handleErrors(invController.deleteInventory));
+
+// router.post("/delete/", utilities.handleErrors(partsController.deleteInventory));
 
 module.exports = router;

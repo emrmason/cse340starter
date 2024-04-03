@@ -97,6 +97,48 @@ partsCont.getPartsData = async function (req, res, next) {
   }
 };
 
-// Update parts
+// Build update parts view
+partsCont.buildUpdateParts = async function (req, res, next) {
+  const part_id = parseInt(req.params.partId);
+  let nav = await utilities.getNav();
+  const partData = await partsModel.getPartDetail(part_id);
+  const partName = `${partData[0].part_name}`;
+  try {
+    res.render("./parts/update-part", {
+      title: "Update" + partName,
+      nav,
+      errors: null,
+      part_id: partData[0].part_id,
+      part_name: partData[0].part_name,
+      part_description: partData[0].part_description,
+      part_image: partData[0].part_image,
+      part_thumbnail: partData[0].part_thumbnail,
+      part_price: partData[0].part_price,
+    });
+  } catch (error) {
+    res.send("Error building parts update view - ", error);
+  }
+};
+
+// Build Delete Parts view
+partsCont.buildDeletePart = async function (req, res, next) {
+  const part_id = parseInt(req.params.partId);
+  let nav = await utilities.getNav();
+  const itemData = await partsModel.getPartDetail(part_id);
+  console.log(itemData[0].part_name, "This is from partsCont.buildDeletePart");
+  const itemName = `${itemData[0].part_name}`;
+  try {
+    res.render("./part/delete-confirm", {
+      title: "Delete " + itemName,
+      nav,
+      errors: null,
+      part_id: itemData[0].part_id,
+      part_description: itemData[0].part_description,
+      part_price: itemData[0].part_price,
+    });
+  } catch (error) {
+    res.send("Couldn't build the view - ", error);
+  }
+};
 
 module.exports = partsCont;

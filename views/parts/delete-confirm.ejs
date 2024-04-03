@@ -1,0 +1,20 @@
+<% if(title){ %> <h1><%= title %></h1> <%} else { res.redirect('/') } %> <%- messages() %> <% if (errors) { %> <ul class="message warning"> <% errors.array().forEach(error => { %> <li><%= error.msg %></li> <% }) %> </ul> <% } %>
+
+
+<section class="form-container">
+    <p><b>Confirm Deletion- this action is permanent.</b></p>
+    <form class="form" id="partsDelete" action="/parts/delete" method ="post">
+        <label for="part_name">Part Name:</label>
+        <input type="character varying" class="form-field" name="part_name" required value="<%= locals.part_name %>">
+        <label for="part_description">Description:</label>
+        <input type="text" class="form-field" name="part_description" required value="<%= locals.part_description %>">
+        <label for="part_image">Full Image File Path:</label>
+        <input type="character varying" class="form-field" name="part_image" required placeholder="Example: /images/parts/name.jpg" value="<%= locals.part_image %>">
+        <label for="part_thumbnail">Thumbnail Image File path:</label>
+        <input type="character varying" class="form-field" name="part_thumbnail" required placeholder="Example: /images/parts/name-tn.jpg" value="<%= locals.part_thumbnail %>">
+        <label for="part_price">Price (numbers only):</label>
+        <input type="integer" class="form-field" name="part_price" required value="<%= locals.part_price %>"><br>
+        <hr>
+        <input type="submit" class="form-button" name="submit" disabled>Delete Part</input>
+    </form>
+</section>
