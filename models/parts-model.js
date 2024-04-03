@@ -71,6 +71,7 @@ partsModel.updatePart = async function (
       part_price,
       part_id,
     ]);
+    console.log("From partsModel.updatePart - ", data);
     return data.rows[0];
   } catch (error) {
     console.error("Parts Model Update error: ", error);

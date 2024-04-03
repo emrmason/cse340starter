@@ -120,6 +120,47 @@ partsCont.buildUpdateParts = async function (req, res, next) {
   }
 };
 
+// Process update to part
+partsCont.updatePart = async function (req, res, next) {
+  let nav = await utilities.getNav();
+  const {
+    part_id,
+    part_name,
+    part_description,
+    part_image,
+    part_thumbnail,
+    part_price,
+  } = req.body;
+  const updateResult = await partsModel.updatePart(
+    part_id,
+    part_name,
+    part_description,
+    part_image,
+    part_thumbnail,
+    part_price
+  );
+  if (updateResult) {
+    itemName = updateResult.part_name;
+    console.log(itemName);
+    req.flash("message success", `${itemName} was successfully updated.`);
+    res.redirect("/inv/");
+  } else {
+    const itemName = part_name;
+    req.flash("notice", "Sorry, the update failed.");
+    res.status(501).render("parts/update-part", {
+      title: "Update " + itemName,
+      nav,
+      errors: null,
+      part_id,
+      part_name,
+      part_description,
+      part_image,
+      part_thumbnail,
+      part_price,
+    });
+  }
+};
+
 // Build Delete Parts view
 partsCont.buildDeletePart = async function (req, res, next) {
   const part_id = req.params.part_id;
@@ -139,6 +180,36 @@ partsCont.buildDeletePart = async function (req, res, next) {
     });
   } catch (error) {
     res.send("Couldn't build the view - ", error);
+  }
+};
+
+// Process delete part
+partsCont.deletePart = async function (req, res, next) {
+  let nav = await utilities.getNav();
+  // const part_id = req.body.part_id;
+  const itemName = req.body.part_name;
+  console.log(part_id);
+  const { part_id, part_name, part_description, part_price } = req.body;
+  const deleteResult = await partsModel.deletePart(
+    part_id,
+    part_name,
+    part_description,
+    part_price
+  );
+  if (deleteResult) {
+    req.flash("message success", `${itemName} was successfully deleted.`);
+    req.redirect("/inv/");
+  } else {
+    req.flash("notice", "Sorry the deletion failed.");
+    res.status(501).render("parts/delete-confirm", {
+      title: "Delete " + itemName,
+      nav,
+      errors: null,
+      part_id,
+      part_name,
+      part_description,
+      part_price,
+    });
   }
 };
 

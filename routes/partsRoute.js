@@ -37,14 +37,11 @@ router.post(
 );
 
 router.post(
-  "/update/:part_id",
+  "/update/",
   utilities.checkEmployeeAuth,
-  utilities.handleErrors(partsController.buildUpdateParts)
+  utilities.handleErrors(partsController.updatePart)
 );
 
-router.post(
-  "/delete/",
-  utilities.handleErrors(partsController.deleteInventory)
-);
+router.post("/delete/", utilities.handleErrors(partsController.deletePart));
 
 module.exports = router;
