@@ -4,6 +4,7 @@
 <section class="form-container">
     <p><b>All fields are required.</b></p>
     <form class="form" id="partsUpdate" action="/parts/update" method ="post">
+
         <label for="part_name">Part Name:</label>
         <input type="character varying" class="form-field" name="part_name" required value="<%= locals.part_name %>">
         <label for="part_description">Description:</label>
@@ -15,7 +16,8 @@
         <label for="part_price">Price (numbers only):</label>
         <input type="integer" class="form-field" name="part_price" required value="<%= locals.part_price %>"><br>
         <hr>
-        <button type="submit" id="button2" class="form-button" name="submit" disabled>Update Part</button>
+        <button type="submit" id="button2" class="form-button" disabled>Update Part</button>
+        <input type="hidden" name="part_id" <% if(locals.part_id) { %> value="<%=locals.part_id %>"<% } %>>
     </form>
 </section>
 

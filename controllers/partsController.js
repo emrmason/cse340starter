@@ -71,12 +71,11 @@ partsCont.addPart = async function (req, res, next) {
     part_price
   );
   if (addPartResult) {
-    const partName = addPartResult.part_name;
-    req.flash("message success", `Your part ${partName} was added.`);
-    res.redirect("./parts/add-part");
+    req.flash("message success", `Your part ${part_name} was added.`);
+    res.redirect("/inv");
   } else {
     req.flash("message warning", "Sorry, the part coudl not be added.");
-    res.status(501).render("./parts/add-part", {
+    res.status(501).render("parts/add-part", {
       title: "Add Part",
       nav,
       errors: null,
@@ -131,6 +130,7 @@ partsCont.updatePart = async function (req, res, next) {
     part_thumbnail,
     part_price,
   } = req.body;
+  console.log(req.body);
   const updateResult = await partsModel.updatePart(
     part_id,
     part_name,
@@ -141,7 +141,6 @@ partsCont.updatePart = async function (req, res, next) {
   );
   if (updateResult) {
     itemName = updateResult.part_name;
-    console.log(itemName);
     req.flash("message success", `${itemName} was successfully updated.`);
     res.redirect("/inv/");
   } else {
@@ -166,7 +165,6 @@ partsCont.buildDeletePart = async function (req, res, next) {
   const part_id = req.params.part_id;
   let nav = await utilities.getNav();
   const itemData = await partsModel.getPartDetail(part_id);
-  console.log(itemData[0].part_name, "This is from partsCont.buildDeletePart");
   const itemName = `${itemData[0].part_name}`;
   try {
     res.render("./parts/delete-confirm", {
@@ -187,8 +185,8 @@ partsCont.buildDeletePart = async function (req, res, next) {
 partsCont.deletePart = async function (req, res, next) {
   let nav = await utilities.getNav();
   // const part_id = req.body.part_id;
-  const itemName = req.body.part_name;
-  console.log(part_id);
+  // const itemName = req.body.part_name;
+  // console.log(part_id);
   const { part_id, part_name, part_description, part_price } = req.body;
   const deleteResult = await partsModel.deletePart(
     part_id,
@@ -197,8 +195,8 @@ partsCont.deletePart = async function (req, res, next) {
     part_price
   );
   if (deleteResult) {
-    req.flash("message success", `${itemName} was successfully deleted.`);
-    req.redirect("/inv/");
+    req.flash("message success", `${part_name} was successfully deleted.`);
+    res.redirect("/inv/");
   } else {
     req.flash("notice", "Sorry the deletion failed.");
     res.status(501).render("parts/delete-confirm", {

@@ -12,5 +12,6 @@
         <input type="integer" class="form-field" name="part_price" required value="<%= locals.part_price %>"><br>
         <hr>
         <input type="submit" class="form-button" name="submit"></input>
+        <input type="hidden" name="part_id" <% if(locals.part_id) { %> value="<%=locals.part_id %>"<% } %>>
     </form>
 </section>

@@ -71,7 +71,6 @@ partsModel.updatePart = async function (
       part_price,
       part_id,
     ]);
-    console.log("From partsModel.updatePart - ", data);
     return data.rows[0];
   } catch (error) {
     console.error("Parts Model Update error: ", error);
@@ -82,7 +81,7 @@ partsModel.updatePart = async function (
 partsModel.deletePart = async function (part_id) {
   try {
     const sql = "DELETE FROM parts WHERE part_id = $1";
-    const data = await pool.query(sql, [inventory_id]);
+    const data = await pool.query(sql, [part_id]);
     return data;
   } catch (error) {
     new Error("Delete Inventory Error");
